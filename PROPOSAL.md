@@ -1,6 +1,6 @@
 # Project Proposal
 
-#### Summary
+### Summary
 
 I plan on making a 2d top-down RPG-style game. I am not 100% decided yet on the exact nature of the game but the genre is specific enough that the initial implementations will largely be similar regardless of the actual content. 
 
@@ -20,7 +20,7 @@ Easy to extend, easy to scale back. Main challenge would be that I'd have to imp
 
 Here, this would take away from the 2d top down RPG aspect a bit. Think an Ace Attorney knockoff with a lot worse writing. Main challenge would be the sheer bulk of dialogue but this way there should be less graphical assets. Solving mysteries is always fun though, and this is probably the less boring of the three alternatives.
 
-#### Possible Libraries
+### Possible Libraries
 
 ##### [json](https://github.com/nlohmann/json)
 
@@ -38,7 +38,7 @@ Finally, this library (or rather, header file?) can handle most 2D collisions, a
 
 Other than those 3, I think the only other thing I'd use is oF's native sound library, and I've already used that in my snake game so it should be all good. I think what I mainly need to be careful of is making sure that I can get these 3 libraries interfacing with each other correctly.
 
-#### Other Resources
+### Other Resources
 
 Free SFX generator: http://www.superflashbros.net/as3sfxr/
 
@@ -46,7 +46,7 @@ Free (with credit) background music repository: http://soundimage.org/
 
 Free art: Paint Tool SAI and my hand
 
-#### Replacing openFrameworks?
+### Replacing openFrameworks?
 
 This is extremely unlikely but I am *considering* possibly replacing openFrameworks with olcPixelGameEngine instead. It's mostly that PixelGameEngine allows for better rendering of images while preserving their resolution and not anti-aliasing them to blurry oblivion. However, given that I'm currently only familiar with openFrameworks, I don't *think* I'll change to using this but I will look into the possibility.
 
