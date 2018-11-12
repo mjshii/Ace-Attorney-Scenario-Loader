@@ -2,7 +2,15 @@
 
 #include "ofMain.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
+
+	struct Scene {
+		void draw();
+	};
+
+	struct Window {
+
+	};
 
 	public:
 		void setup();
