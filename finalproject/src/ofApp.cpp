@@ -3,17 +3,18 @@ namespace finalproject {
 	//--------------------------------------------------------------
 	void Game::setup() {
 		ofSetWindowTitle("Game");
-		scenes.push(Scene_Title());
+		scenes.push(sp(new Scene_Title()));
 	}
 
 	//--------------------------------------------------------------
 	void Game::update() {
+		scenes.top()->update();
 
 	}
 
 	//--------------------------------------------------------------
 	void Game::draw() {
-		scenes.top().draw();
+		scenes.top()->draw();
 	}
 
 	//--------------------------------------------------------------

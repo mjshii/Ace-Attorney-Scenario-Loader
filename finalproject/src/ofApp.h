@@ -1,13 +1,18 @@
 #pragma once
 #include "ofMain.h"
-#include "../scenes.h"
+#include "scenes/scenes.h"
 #include <stack>
 #include <string>
 #include <vector>
+#include <memory>
+
+// sp stands for "scene pointer"
+using sp = std::unique_ptr<finalproject::Scene>;
+
 namespace finalproject {
 
 	class Game : public ofBaseApp {
-		std::stack<Scene> scenes;
+		std::stack<sp> scenes;
 
 		public:
 			void setup();
