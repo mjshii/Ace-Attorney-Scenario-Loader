@@ -263,3 +263,4 @@ __pycache__/
 *.rc
 *.filters
 *.vcxproj
+/test examples/Parent Child Inheritance/.vscode

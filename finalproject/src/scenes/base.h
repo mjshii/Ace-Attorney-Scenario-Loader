@@ -10,11 +10,8 @@ namespace finalproject {
 		protected:
 			ofTrueTypeFont font;
 			ofImage bg;
-			bool should_dispose = false;
 
 		public:
-			virtual bool shouldDispose();
-
 			virtual void update() = 0;
 			virtual void draw() = 0;
 

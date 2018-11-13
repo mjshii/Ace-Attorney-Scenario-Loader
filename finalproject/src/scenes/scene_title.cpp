@@ -1,6 +1,7 @@
 #include "scene_title.h"
 #include <iostream>
 #include <fstream>
+#include <regex>
 
 namespace finalproject {
 
@@ -9,7 +10,9 @@ Scene_Title::Scene_Title() {
 	bg.load("title.png");
 }
 
-void Scene_Title::update() {}
+void Scene_Title::update() {
+
+}
 
 void Scene_Title::draw() {
 	ofSetColor(255);
@@ -37,7 +40,7 @@ void Scene_Title::submitScenario() {
 	std::ofstream file("test.txt", std::ios::trunc);
 	file << "Test to find the directory location";
 	file.close();
-	should_dispose = true;
+	scenes.pop();
 }
 
 } //namespace finalproject

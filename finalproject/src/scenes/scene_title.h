@@ -1,5 +1,7 @@
 #pragma once
 #include "base.h"
+#include "scenemanager.h"
+
 namespace finalproject {
 
 	class Scene_Title : public Scene {
