@@ -12,11 +12,16 @@ namespace finalproject {
 	// Update
 	//
 	void Game::update() {
+		if (scenes.empty()) {
+			ofExit();
+			return;
+		}
+
 		// update only the last scene
 		scenes.back()->update();
-		while (scenes.back()->shouldDispose()) {
+		if (scenes.back()->shouldDispose()) {
 			scenes.pop_back();
-			scenes.back()->update();
+			update();
 		}
 	}
 
@@ -33,8 +38,12 @@ namespace finalproject {
 	// Keypress
 	//
 	void Game::keyReleased(int key) {
+		if (scenes.empty()) {
+			return;
+		}
+
 		// send mouse info to the last scene only
-		scenes.back()->update();
+		scenes.back()->processKey(key);
 	}
 
 	//--------------------------------------------------------------

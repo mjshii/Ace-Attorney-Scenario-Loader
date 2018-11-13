@@ -6,6 +6,7 @@ namespace finalproject {
 		public:
 			void update();
 			void draw();
+			void processKey(int key);
 	};
 
 } //namespace finalproject
