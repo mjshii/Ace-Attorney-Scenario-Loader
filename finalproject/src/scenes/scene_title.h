@@ -14,6 +14,8 @@ namespace finalproject {
 			void update();
 			void draw();
 			void processKey(int key);
+
+			void submitScenario();
 	};
 
 } //namespace finalproject

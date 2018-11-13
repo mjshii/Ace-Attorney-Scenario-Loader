@@ -1,5 +1,6 @@
 #include "scene_title.h"
 #include <iostream>
+#include <fstream>
 
 namespace finalproject {
 
@@ -18,12 +19,25 @@ void Scene_Title::draw() {
 }
 
 void Scene_Title::processKey(int key) {
-	if (key != OF_KEY_RETURN) {
-		input += (char)key;
-		
-	} else {
-		should_dispose = true;
+	switch (key) {
+		case OF_KEY_BACKSPACE:
+			if (!input.empty()) {
+				input.pop_back();
+			}
+			return;
+
+		case OF_KEY_RETURN: submitScenario();
+			return;
+
+		default: input += (char)key;
 	}
+}
+
+void Scene_Title::submitScenario() {
+	std::ofstream file("test.txt", std::ios::trunc);
+	file << "Test to find the directory location";
+	file.close();
+	should_dispose = true;
 }
 
 } //namespace finalproject
