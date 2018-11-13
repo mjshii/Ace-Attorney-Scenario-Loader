@@ -1,5 +1,5 @@
 #pragma once
-#include "scene.h"
+#include "base.h"
 namespace finalproject {
 
 	class Scene_Title : public Scene {

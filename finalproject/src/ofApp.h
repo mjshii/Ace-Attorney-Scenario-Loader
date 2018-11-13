@@ -1,6 +1,6 @@
 #pragma once
 #include "ofMain.h"
-#include "scenes/scenes.h"
+#include "scenes/scenelist.h"
 #include <stack>
 #include <string>
 #include <vector>
