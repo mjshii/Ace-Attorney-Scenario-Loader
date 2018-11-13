@@ -1,7 +1,6 @@
 #include "scene_title.h"
 #include <iostream>
 #include <fstream>
-#include <regex>
 
 namespace finalproject {
 
@@ -29,11 +28,22 @@ void Scene_Title::processKey(int key) {
 			}
 			return;
 
-		case OF_KEY_RETURN: submitScenario();
+		case OF_KEY_RETURN:
+			submitScenario();
 			return;
 
-		default: input += (char)key;
+		default:
+			if (isValidCharacter(key)) {
+				input += (char)key;
+			}
 	}
+}
+
+bool Scene_Title::isValidCharacter(int key) {
+	return (key >= 'A' && key <= 'Z') || 
+		(key >= 'a' && key <= 'z') ||
+		(key >= '0' && key <= '9') || 
+		(key == '-' || key == '_' || key == '.');
 }
 
 void Scene_Title::submitScenario() {

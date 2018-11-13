@@ -16,6 +16,7 @@ namespace finalproject {
 			void update();
 			void draw();
 			void processKey(int key);
+			bool isValidCharacter(int key);
 
 			void submitScenario();
 	};
