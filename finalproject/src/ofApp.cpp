@@ -1,10 +1,32 @@
 #include "ofApp.h"
+#include "game_constants.h"
+
+using namespace finalproject::constants;
+
 namespace finalproject {
 	//--------------------------------------------------------------
 	// Setup
 	//
 	void Game::setup() {
 		ofSetWindowTitle("Game");
+
+		loadFonts();
+		loadSounds();
+		loadImages();
+		loadScenes();
+	}
+
+	void Game::loadFonts() {
+		font.load(kFontFile, kFontSize);
+	}
+
+	void Game::loadSounds() {
+	}
+
+	void Game::loadImages() {
+	}
+
+	void Game::loadScenes()	{
 		scenes.push_back(ScenePtr(new Scene_Title()));
 	}
 

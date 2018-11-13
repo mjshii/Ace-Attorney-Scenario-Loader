@@ -12,12 +12,19 @@ using ScenePtr = std::shared_ptr<finalproject::Scene>;
 namespace finalproject {
 
 	class Game : public ofBaseApp {
+		// Scene list
 		std::vector<ScenePtr> scenes;
 
-
+		// Resources
+		ofTrueTypeFont font;
 
 		public:
 			void setup();
+			void loadFonts();
+			void loadSounds();
+			void loadImages();
+			void loadScenes();
+
 			void update();
 			void draw();
 
