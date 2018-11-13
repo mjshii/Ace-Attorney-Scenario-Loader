@@ -6,7 +6,7 @@
 using namespace finalproject;
 
 int main() {
-	ofSetupOpenGL(1280, 720, DISPLAY_MODE);
+	ofSetupOpenGL(1080, 720, DISPLAY_MODE);
 	ofSetFrameRate(30);
 
 	ofRunApp(new Game());

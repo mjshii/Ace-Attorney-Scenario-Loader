@@ -1,10 +1,15 @@
 #pragma once
-#include "ofGraphics.h"
+#include <string>
+#include <vector>
+#include "ofMain.h"
+#include "../game_constants.h"
 
 namespace finalproject {
 
 	class Scene {
 		protected:
+			ofTrueTypeFont font;
+			ofImage bg;
 			bool should_dispose = false;
 
 		public:

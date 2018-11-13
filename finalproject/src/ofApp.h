@@ -28,8 +28,8 @@ namespace finalproject {
 			void update();
 			void draw();
 
-			void keyReleased(int key);
-			void mouseReleased(int x, int y, int button);
+			void keyPressed(int key);
+			void mousePressed(int x, int y, int button);
 			void windowResized(int w, int h);
 		
 	};

@@ -59,7 +59,7 @@ namespace finalproject {
 	//--------------------------------------------------------------
 	// Keypress
 	//
-	void Game::keyReleased(int key) {
+	void Game::keyPressed(int key) {
 		if (scenes.empty()) {
 			return;
 		}
@@ -71,7 +71,7 @@ namespace finalproject {
 	//--------------------------------------------------------------
 	// Mouse Click
 	//
-	void Game::mouseReleased(int x, int y, int button) {
+	void Game::mousePressed(int x, int y, int button) {
 
 	}
 
