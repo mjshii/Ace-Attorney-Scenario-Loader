@@ -1,74 +1,53 @@
 #include "ofApp.h"
 namespace finalproject {
 	//--------------------------------------------------------------
+	// Setup
+	//
 	void Game::setup() {
 		ofSetWindowTitle("Game");
-		scenes.push(sp(new Scene_Title()));
+		scenes.push_back(ScenePtr(new Scene_Title()));
 	}
 
 	//--------------------------------------------------------------
+	// Update
+	//
 	void Game::update() {
-		scenes.top()->update();
-
+		// update only the last scene
+		scenes.back()->update();
+		while (scenes.back()->shouldDispose()) {
+			scenes.pop_back();
+			scenes.back()->update();
+		}
 	}
 
 	//--------------------------------------------------------------
+	// Draw
+	//
 	void Game::draw() {
-		scenes.top()->draw();
+		for (auto scene : scenes) {
+			scene->draw();
+		}
 	}
 
 	//--------------------------------------------------------------
-	void Game::keyPressed(int key) {
-
-	}
-
-	//--------------------------------------------------------------
+	// Keypress
+	//
 	void Game::keyReleased(int key) {
-
+		// send mouse info to the last scene only
+		scenes.back()->update();
 	}
 
 	//--------------------------------------------------------------
-	void Game::mouseMoved(int x, int y) {
-
-	}
-
-	//--------------------------------------------------------------
-	void Game::mouseDragged(int x, int y, int button) {
-
-	}
-
-	//--------------------------------------------------------------
-	void Game::mousePressed(int x, int y, int button) {
-
-	}
-
-	//--------------------------------------------------------------
+	// Mouse Click
+	//
 	void Game::mouseReleased(int x, int y, int button) {
 
 	}
 
 	//--------------------------------------------------------------
-	void Game::mouseEntered(int x, int y) {
-
-	}
-
-	//--------------------------------------------------------------
-	void Game::mouseExited(int x, int y) {
-
-	}
-
-	//--------------------------------------------------------------
+	// Window Resize
+	//
 	void Game::windowResized(int w, int h) {
-
-	}
-
-	//--------------------------------------------------------------
-	void Game::gotMessage(ofMessage msg) {
-
-	}
-
-	//--------------------------------------------------------------
-	void Game::dragEvent(ofDragInfo dragInfo) {
 
 	}
 
