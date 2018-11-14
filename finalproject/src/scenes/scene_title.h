@@ -8,6 +8,11 @@ namespace finalproject {
 		const std::string kFontFile = constants::kFontFile;
 		const int kFontSize = 45;
 
+		const int kInputX = 166;
+		const int kInputY = 513;
+		const int kInputWidth = 739;
+		const int kInputHeight = 63;
+
 		std::string input;
 
 		public:
