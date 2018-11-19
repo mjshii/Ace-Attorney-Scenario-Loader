@@ -1,0 +1,105 @@
+{
+  "inventory": [
+    {
+      "name": "report",
+      "desc": "a report on the body"
+    },
+    {
+      "name": "affidavit",
+      "desc": "a report on the body"
+    }
+  ],
+  "story": [
+    {
+      "bg": "courtroom.png"
+    },
+    {
+      "name": "John Smith",
+      "image": "johnsmith.png",
+      "text": "Before the testimony, I say this"
+    },
+    {
+      "testimony": {
+        "default present": [
+          {
+            "text": "That is completely irrelevant"
+          }
+        ],
+        "afterword": [
+          {
+            "text": "This is the first time I'm seeing all this"
+          },
+          {
+            "text": "gonna take awhile to process"
+          }
+        ],
+        "short afterword": [
+          {
+            "text": "Well I've seen this a few times already"
+          }
+        ],
+        "statements": [
+          {
+            "text": "so there's this thing",
+            "press": [
+              {
+                "text": "To elaborate..."
+              },
+              {
+                "text": "Something something"
+              },
+              {
+                "text": "Something again"
+              }
+            ]
+          },
+          {
+            "text": "and another thing",
+            "press": [
+              {
+                "text": "Not much to say here"
+              }
+            ]
+          },
+          {
+            "text": "but this thing might be wrong",
+            "press": [
+              {
+                "text": "but you know, you might be right"
+              },
+              {
+                "add item": {
+                  "name": "updated report",
+                  "desc": "a better report on the body"
+                }
+              }
+            ]
+          },
+          {
+            "text": "and this shows up after you press 1",
+            "condition": "press 1",
+            "press": [
+              {
+                "text": "plz don't present the updated report here or my testimony falls apart"
+              }
+            ],
+            "present updated report": [
+              {
+                "text": "holy macaroni"
+              },
+              {
+                "text": "you did it"
+              },
+              {
+                "text": "that's it I'm done"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "text": "Bailed out of the update loop just now"
+    }
+  ]
+}
