@@ -7,6 +7,9 @@ using ScenePtr = std::shared_ptr<finalproject::Scene>;
 
 namespace finalproject {
 
+	// global variable
+	extern SceneManager scenes;
+
 	class SceneManager {
 		std::vector<ScenePtr> scene_list;
 
@@ -21,8 +24,5 @@ namespace finalproject {
 
 			bool empty();
 	};
-
-	// global variable
-	extern SceneManager scenes;
 }
 
