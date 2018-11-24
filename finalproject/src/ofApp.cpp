@@ -27,6 +27,8 @@ namespace finalproject {
 	// Draw
 	//
 	void Game::draw() {
+		float scale = ((float)ofGetWindowWidth()) / constants::kWindowWidth;
+		ofScale(scale, scale, scale);
 		scenes.draw();
 	}
 
@@ -46,7 +48,8 @@ namespace finalproject {
 	// Window Resize
 	//
 	void Game::windowResized(int w, int h) {
-
+		float adjusted_h = ((float) w) * constants::kWindowHeight / constants::kWindowWidth;
+		ofSetWindowShape(w, adjusted_h);
 	}
 
 } //namespace finalproject
