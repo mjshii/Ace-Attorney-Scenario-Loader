@@ -11,6 +11,16 @@ namespace finalproject {
 		scene_list.push_back(scene);
 	}
 
+	void SceneManager::replace(Scene* scene) {
+		pop();
+		add(ScenePtr(scene));
+	}
+
+	void SceneManager::replace(ScenePtr scene) {
+		pop();
+		scene_list.push_back(scene);
+	}
+
 	void SceneManager::pop() {
 		scene_list.pop_back();
 	}
