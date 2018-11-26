@@ -8,11 +8,11 @@ using nlohmann::json;
 namespace finalproject {
 
 	class Scene_Story : public Scene {
-		std::string file;
-		json story;
+		json file;
+		std::vector<InventoryItem> inventory;
 
 	public:
-		Scene_Story(std::string file_name);
+		Scene_Story(const json &story_file);
 
 		void update();
 		void draw();

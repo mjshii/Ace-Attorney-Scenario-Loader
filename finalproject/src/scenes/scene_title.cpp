@@ -1,6 +1,7 @@
 #include "scene_title.h"
 #include <iostream>
 #include <fstream>
+#include "../libs/json.hpp"
 
 namespace finalproject {
 
@@ -51,7 +52,9 @@ namespace finalproject {
 	void Scene_Title::submitScenario() {
 		std::ifstream file(input);
 		if (file.good()) {
-			scenes.replace(new Scene_Story(input));
+			json story;
+			file >> story;
+			scenes.replace(new Scene_Story(story));
 		} else {
 			input = "Bad file!";
 		}

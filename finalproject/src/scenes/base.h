@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "ofMain.h"
+#include "../inventory_item.h"
 #include "../game_constants.h"
 
 namespace finalproject {
