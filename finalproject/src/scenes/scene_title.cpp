@@ -23,21 +23,21 @@ namespace finalproject {
 	}
 
 	void Scene_Title::processKey(int key) {
-		switch (key) {
-			case OF_KEY_BACKSPACE:
-				if (!input.empty()) {
-					input.pop_back();
-				}
-				return;
+		if (input == "Bad file!") {
+			input.clear();
+			return;
+		}
 
-			case OF_KEY_RETURN:
-				submitScenario();
-				return;
-
-			default:
-				if (isValidCharacter(key)) {
-					input += (char)key;
-				}
+		if (!input.empty()) {
+			switch (key) {
+				case OF_KEY_BACKSPACE: input.pop_back();
+					return;
+				case OF_KEY_RETURN: submitScenario();
+					return;
+			}
+		}
+		if (isValidCharacter(key)) {
+			input += (char)key;
 		}
 	}
 
@@ -49,10 +49,13 @@ namespace finalproject {
 	}
 
 	void Scene_Title::submitScenario() {
-		std::ofstream file("test.txt", std::ios::trunc);
-		file << "Test to find the directory location";
+		std::ifstream file(input);
+		if (file.good()) {
+			scenes.replace(new Scene_Story(input));
+		} else {
+			input = "Bad file!";
+		}
 		file.close();
-		scenes.pop();
 	}
 
 } //namespace finalproject
