@@ -5,9 +5,6 @@
 namespace finalproject {
 
 	class Scene_Title : public Scene {
-		const std::string kFontFile = constants::kFontFile;
-		const int kFontSize = 45;
-
 		const int kInputX = 166;
 		const int kInputY = 513;
 		const int kInputWidth = 739;

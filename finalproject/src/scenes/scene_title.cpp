@@ -6,8 +6,8 @@
 namespace finalproject {
 
 	Scene_Title::Scene_Title() {
-		font.load(constants::kFontFile, kFontSize);
-		bg.load("title.png");
+		font.load(constants::kFontFile, constants::kTitleFontSize);
+		bg.load(constants::kTitleBG);
 	}
 
 	void Scene_Title::update() {}

@@ -11,6 +11,10 @@ namespace finalproject {
 		json file;
 		std::vector<InventoryItem> inventory;
 
+		ofImage text_bg;
+
+		void loadResources();
+
 	public:
 		Scene_Story(const json &story_file);
 
