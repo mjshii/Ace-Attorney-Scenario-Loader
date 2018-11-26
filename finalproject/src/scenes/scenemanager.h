@@ -13,8 +13,10 @@ namespace finalproject {
 		public:
 			void add(Scene* scene);
 			void add(ScenePtr scene);
+
 			void replace(Scene* scene);
 			void replace(ScenePtr scene);
+
 			void pop();
 
 			void update();
