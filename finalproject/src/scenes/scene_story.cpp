@@ -18,18 +18,22 @@ namespace finalproject {
 	void Scene_Story::update() {
 		const auto &line = file["story"].at(current_index);
 		if (line.find("bg") != line.end()) {
-			bg.load(line["bg"].get<std::string>());
+			std::string image = line["bg"];
+			bg.load(image);
 		}
 	}
 
 	void Scene_Story::draw() {
+		ofSetColor(255);
 		bg.draw(0, 0);
-
 	}
 
 	void Scene_Story::processKey(int key) {
-		if (current_index < file["story"].size() - 2) {
+		try {
 			current_index++;
+			file["story"].at(current_index);
+		} catch (std::out_of_range) {
+			scenes.replace(new Scene_Title());
 		}
 	}
 

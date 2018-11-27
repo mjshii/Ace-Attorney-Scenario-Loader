@@ -12,9 +12,16 @@
   "story": [
     {
       "bg": "courtroom.png",
+      "text": "19:00 Courtroom no. 2"
+    },
+    {
       "name": "John Smith",
       "image": "johnsmith.png",
       "text": "Before the testimony, I say this"
+    },
+    {
+      "bg": "stand.png",
+      "text": "Now I'm on the witness stand"
     },
     {
       "testimony": {
