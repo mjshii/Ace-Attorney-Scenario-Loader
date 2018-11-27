@@ -21,8 +21,9 @@
       "text": "Before the testimony, I say this"
     },
     {
-      "bg": "stand.png",
-      "text": "Now I'm on the witness stand"
+      "bg": "stand_bg.png",
+      "text": "Now I'm on the witness stand",
+      "overlay": "stand.png"
     },
     {
       "testimony": {
