@@ -12,6 +12,7 @@
   "story": [
     {
       "bg": "courtroom.png",
+      "bgm": "bgm.mp3",
       "text": "19:00 Courtroom no. 2"
     },
     {
