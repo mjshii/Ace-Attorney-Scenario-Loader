@@ -11,9 +11,7 @@
   ],
   "story": [
     {
-      "bg": "courtroom.png"
-    },
-    {
+      "bg": "courtroom.png",
       "name": "John Smith",
       "image": "johnsmith.png",
       "text": "Before the testimony, I say this"

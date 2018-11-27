@@ -11,11 +11,16 @@ namespace finalproject {
 			inventory.push_back(InventoryItem(item["name"], item["desc"]));
 		}
 
-		loadResources();
+		//loadResources();
 	}
 
 
-	void Scene_Story::update() {}
+	void Scene_Story::update() {
+		const auto &line = file["story"].at(current_index);
+		if (line.find("bg") != line.end()) {
+			bg.load(line["bg"].get<std::string>());
+		}
+	}
 
 	void Scene_Story::draw() {
 		bg.draw(0, 0);
@@ -23,8 +28,8 @@ namespace finalproject {
 	}
 
 	void Scene_Story::processKey(int key) {
-		for (auto& line : file["story"]) {
-			std::cout << line << '\n';
+		if (current_index < file["story"].size() - 2) {
+			current_index++;
 		}
 	}
 

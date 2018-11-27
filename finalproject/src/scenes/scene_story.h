@@ -10,6 +10,7 @@ namespace finalproject {
 	class Scene_Story : public Scene {
 		json file;
 		std::vector<InventoryItem> inventory;
+		int current_index = 0;
 
 		ofImage text_bg;
 
