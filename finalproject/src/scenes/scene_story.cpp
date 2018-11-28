@@ -16,6 +16,13 @@ namespace finalproject {
 		font.load(constants::kFontFile, constants::kFontSize);
 	}
 
+	std::string Scene_Story::wordWrap(std::string sentence, int width) {
+		if (font.stringWidth(sentence) <= width) {
+			return sentence;
+		}
+		return "needs wrapping";
+	}
+
 	void Scene_Story::update() {
 		if (shouldUpdate) {
 			updateImages();
@@ -29,6 +36,7 @@ namespace finalproject {
 		if (data.contains("bg")) {
 			bg.load(data["bg"].get<std::string>());
 		}
+
 		if (data.contains("image")) {
 			if (data["image"].size() > 0) {
 				sprite.load(data["image"].get<std::string>());
@@ -36,6 +44,7 @@ namespace finalproject {
 				sprite.clear();
 			}
 		}
+
 		if (data.contains("overlay")) {
 			if (data["overlay"].size() > 0) {
 				overlay.load(data["overlay"].get<std::string>());
@@ -46,11 +55,10 @@ namespace finalproject {
 	}
 
 	void Scene_Story::updateTextbox() {
+		text_bg.clear();
 		if (data.contains("text")) {
 			std::cout << data["text"] << std::endl;
 			text_bg.load("text_bg.png");
-		} else {
-			text_bg.clear();
 		}
 	}
 
@@ -64,16 +72,40 @@ namespace finalproject {
 
 	void Scene_Story::draw() {
 		ofSetColor(255);
+
 		bg.draw(0, 0);
 		sprite.draw(0, 0);
 		overlay.draw(0, 0);
 		text_bg.draw(0, 0);
+
+		if (data.contains("text")) {
+			if (!next_text.empty()) {
+				current_text.push_back(next_text.front());
+				next_text = next_text.substr(1, next_text.size() - 1);
+			}
+
+			font.drawString(
+				wordWrap(current_text, 1050),
+				15,
+				520 + constants::kFontSize
+			);
+		}
 	}
 
 	void Scene_Story::processKey(int key) {
+		if (!next_text.empty()) {
+			current_text += next_text;
+			next_text.clear();
+			return;
+		}
 		try {
 			current_index++;
 			data = file["story"].at(current_index); //check that access is available
+
+			if (data.contains("text")) {
+				current_text = "";
+				next_text = data["text"].get<std::string>();
+			}
 			shouldUpdate = true;
 
 		} catch (std::out_of_range) {

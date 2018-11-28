@@ -11,12 +11,13 @@ namespace finalproject {
 		json file;
 		json data;
 		int current_index = 0;
+		std::string current_text;
+		std::string next_text;
 
 		std::vector<InventoryItem> inventory;
 
 		bool shouldUpdate = true;
-
-		ofImage bg;
+		
 		ofImage sprite;
 		ofImage overlay;
 		ofImage text_bg;
@@ -24,6 +25,7 @@ namespace finalproject {
 		ofSoundPlayer bgm_channel;
 
 		void loadResources();
+		std::string wordWrap(std::string sentence, int width);
 		void updateImages();
 		void updateTextbox();
 		void updateSounds();

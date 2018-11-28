@@ -10,7 +10,7 @@ namespace finalproject {
 		const int kInputWidth = 739;
 		const int kInputHeight = 63;
 
-		std::string input;
+		std::string input = "story.json";
 
 		public:
 			Scene_Title();
