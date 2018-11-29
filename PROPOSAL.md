@@ -58,7 +58,7 @@ https://github.com/OneLoneCoder/olcPixelGameEngine/wiki
 
 <the above is not happening>
   
-### Schedule
+## Schedule
 1st week - base engine
 
 2nd week - displaying text, images, sound, start on testimony
