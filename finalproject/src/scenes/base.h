@@ -10,7 +10,6 @@ namespace finalproject {
 	class Scene {
 		protected:
 			ofTrueTypeFont font;
-			ofImage bg;
 
 		public:
 			virtual void update() = 0;

@@ -11,6 +11,7 @@ namespace finalproject {
 		const int kInputHeight = 63;
 
 		std::string input = "story.json";
+		ofImage bg;
 
 		public:
 			Scene_Title();

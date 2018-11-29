@@ -3,13 +3,11 @@
 namespace finalproject {
 	Scene_Story::Scene_Story(const json &story_file) {
 		file = story_file;
-		data = file["story"].at(current_index);
-
 		for (auto& item : file["inventory"]) {
 			inventory.push_back(InventoryItem(item["name"], item["desc"]));
 		}
-
 		loadResources();
+		processKey(0); // kick off story
 	}
 
 	void Scene_Story::loadResources() {
@@ -98,6 +96,7 @@ namespace finalproject {
 			next_text.clear();
 			return;
 		}
+
 		try {
 			current_index++;
 			data = file["story"].at(current_index); //check that access is available

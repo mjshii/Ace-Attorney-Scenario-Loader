@@ -10,14 +10,15 @@ namespace finalproject {
 	class Scene_Story : public Scene {
 		json file;
 		json data;
-		int current_index = 0;
+		int current_index = -1;
 		std::string current_text;
 		std::string next_text;
 
 		std::vector<InventoryItem> inventory;
 
 		bool shouldUpdate = true;
-		
+
+		ofImage bg;
 		ofImage sprite;
 		ofImage overlay;
 		ofImage text_bg;
