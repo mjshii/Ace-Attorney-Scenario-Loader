@@ -20,6 +20,8 @@ Easy to extend, easy to scale back. Main challenge would be that I'd have to imp
 
 Here, this would take away from the 2d top down RPG aspect a bit. Think an Ace Attorney knockoff with a lot worse writing. Main challenge would be the sheer bulk of dialogue but this way there should be less graphical assets. Solving mysteries is always fun though, and this is probably the less boring of the three alternatives.
 
+## Concluding note: Going with the debate/courtroom sim!
+
 ### Possible Libraries
 
 ##### [json](https://github.com/nlohmann/json)
@@ -33,6 +35,8 @@ Of course, a JSON isn't the most *secure* way to store save data. So if I implem
 ##### [tinyc2](https://github.com/RandyGaul/cute_headers)
 
 Finally, this library (or rather, header file?) can handle most 2D collisions, and so is perfect for preventing the player from doing things like going through walls.
+
+## Concluding note: Definitely using json, dropping tinyc2 and unsure about keyczar
 
 ##### end notes
 
@@ -51,3 +55,11 @@ Free art: Paint Tool SAI and my hand
 This is extremely unlikely but I am *considering* possibly replacing openFrameworks with olcPixelGameEngine instead. It's mostly that PixelGameEngine allows for better rendering of images while preserving their resolution and not anti-aliasing them to blurry oblivion. However, given that I'm currently only familiar with openFrameworks, I don't *think* I'll change to using this but I will look into the possibility.
 
 https://github.com/OneLoneCoder/olcPixelGameEngine/wiki
+
+<the above is not happening>
+  
+### Schedule
+1st week - base engine
+2nd week - displaying text, images, sound, start on testimony
+3rd week - finish testimony, start on inventory
+4th week - work on press/present and conditional flags
