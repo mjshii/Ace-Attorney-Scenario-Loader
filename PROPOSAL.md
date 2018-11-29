@@ -60,6 +60,9 @@ https://github.com/OneLoneCoder/olcPixelGameEngine/wiki
   
 ### Schedule
 1st week - base engine
+
 2nd week - displaying text, images, sound, start on testimony
+
 3rd week - finish testimony, start on inventory
+
 4th week - work on press/present and conditional flags
