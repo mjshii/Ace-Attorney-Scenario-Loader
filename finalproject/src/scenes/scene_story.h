@@ -11,6 +11,7 @@ namespace finalproject {
 		json file;
 		json data;
 		int current_index = -1;
+		std::string name_text;
 		std::string current_text;
 		std::string next_text;
 
@@ -30,6 +31,8 @@ namespace finalproject {
 		void updateImages();
 		void updateTextbox();
 		void updateSounds();
+
+		void drawTextbox();
 
 	public:
 		Scene_Story(const json &story_file);

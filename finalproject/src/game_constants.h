@@ -10,6 +10,10 @@ namespace constants {
 	const int kWindowWidth = 1080;
 	const int kWindowHeight = 720;
 
+	const int kDialogueX = 15;
+	const int kNameY = 470;
+	const int kDialogueY = 520;
+
 	const std::string kTitleBG = "title.png";
 
 } // namespace constants

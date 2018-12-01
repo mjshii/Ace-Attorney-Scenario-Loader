@@ -106,6 +106,8 @@
       }
     },
     {
+      "bg": "courtroom.png",
+      "overlay": "",
       "text": "Bailed out of the update loop just now"
     }
   ]

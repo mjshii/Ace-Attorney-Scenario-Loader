@@ -18,7 +18,7 @@ namespace finalproject {
 		if (font.stringWidth(sentence) <= width) {
 			return sentence;
 		}
-		return "needs wrapping";
+		return "needs wrapping"; // TODO: text wrap
 	}
 
 	void Scene_Story::update() {
@@ -27,6 +27,12 @@ namespace finalproject {
 			updateTextbox();
 			updateSounds();
 			shouldUpdate = false;
+		}
+
+		// always update text
+		if (!next_text.empty()) {
+			current_text.push_back(next_text.front());
+			next_text = next_text.substr(1, next_text.size() - 1);
 		}
 	}
 
@@ -55,8 +61,11 @@ namespace finalproject {
 	void Scene_Story::updateTextbox() {
 		text_bg.clear();
 		if (data.contains("text")) {
-			std::cout << data["text"] << std::endl;
 			text_bg.load("text_bg.png");
+		}
+
+		if (data.contains("name")) {
+			name_text = data["name"].get<std::string>();
 		}
 	}
 
@@ -77,26 +86,33 @@ namespace finalproject {
 		text_bg.draw(0, 0);
 
 		if (data.contains("text")) {
-			if (!next_text.empty()) {
-				current_text.push_back(next_text.front());
-				next_text = next_text.substr(1, next_text.size() - 1);
-			}
-
-			font.drawString(
-				wordWrap(current_text, 1050),
-				15,
-				520 + constants::kFontSize
-			);
+			drawTextbox();
 		}
 	}
 
+	void Scene_Story::drawTextbox() {
+		font.load(constants::kFontFile, constants::kFontSize - 5);
+		font.drawString(
+			name_text,
+			constants::kDialogueX,
+			constants::kNameY + font.getSize()
+		);
+
+		font.load(constants::kFontFile, constants::kFontSize);
+		font.drawString(
+			wordWrap(current_text, 1050),
+			constants::kDialogueX,
+			constants::kDialogueY + font.getSize()
+		);
+	}
+
 	void Scene_Story::processKey(int key) {
+		// fast forward text
 		if (!next_text.empty()) {
 			current_text += next_text;
 			next_text.clear();
 			return;
 		}
-
 		try {
 			current_index++;
 			data = file["story"].at(current_index); //check that access is available
@@ -108,6 +124,7 @@ namespace finalproject {
 			shouldUpdate = true;
 
 		} catch (std::out_of_range) {
+			bgm_channel.stop();
 			scenes.replace(new Scene_Title());
 		}
 	}
