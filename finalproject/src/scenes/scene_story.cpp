@@ -6,8 +6,7 @@ namespace finalproject {
 		for (auto& item : file["inventory"]) {
 			inventory.push_back(InventoryItem(item["name"], item["desc"]));
 		}
-		loadResources();
-		processKey(0); // kick off story
+		processKey(OF_KEY_RETURN); // kick off story
 	}
 
 	void Scene_Story::loadResources() {
@@ -106,16 +105,37 @@ namespace finalproject {
 		);
 	}
 
+	bool Scene_Story::pressedOK(int key) {
+		return key == OF_KEY_RETURN || key == ' ' ||
+			key == 'z' || key == OF_KEY_RIGHT;
+	}
+
+	bool Scene_Story::pressedCancel(int key) {
+		return key == OF_KEY_ESC || key == 'x' ||
+			key == OF_KEY_LEFT;
+	}
+
+	bool Scene_Story::validKey(int key) {
+		return pressedOK(key) || pressedCancel(key);
+	}
+
 	void Scene_Story::processKey(int key) {
+		if (!validKey(key)) {
+			return;
+		}
 		// fast forward text
 		if (!next_text.empty()) {
 			current_text += next_text;
 			next_text.clear();
 			return;
 		}
+		readNextLine();
+	}
+
+	void Scene_Story::readNextLine() {
 		try {
 			current_index++;
-			data = file["story"].at(current_index); //check that access is available
+			data = file["story"].at(current_index);
 
 			if (data.contains("text")) {
 				current_text = "";
@@ -123,7 +143,8 @@ namespace finalproject {
 			}
 			shouldUpdate = true;
 
-		} catch (std::out_of_range) {
+		}
+		catch (std::out_of_range) {
 			bgm_channel.stop();
 			scenes.replace(new Scene_Title());
 		}

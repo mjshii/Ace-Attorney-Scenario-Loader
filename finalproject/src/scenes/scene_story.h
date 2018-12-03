@@ -33,6 +33,11 @@ namespace finalproject {
 		void updateSounds();
 
 		void drawTextbox();
+		bool validKey(int key);
+		bool pressedOK(int key);
+		bool pressedCancel(int key);
+
+		void readNextLine();
 
 	public:
 		Scene_Story(const json &story_file);

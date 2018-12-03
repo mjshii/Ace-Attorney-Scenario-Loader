@@ -7,7 +7,7 @@ using nlohmann::json;
 
 namespace finalproject {
 
-	class Scene_Testimony : public Scene {
+	class Scene_Inventory : public Scene {
 
 	};
 
