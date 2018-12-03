@@ -6,3 +6,4 @@
 #include "base.h"
 #include "scene_title.h"
 #include "scene_story.h"
+#include "scene_inventory.h"

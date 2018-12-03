@@ -24,6 +24,7 @@ namespace finalproject {
 			void processKey(int key);
 
 			bool empty();
+			bool isActive(const Scene* scene);
 	};
 
 	// global variable

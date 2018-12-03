@@ -82,10 +82,12 @@ namespace finalproject {
 		bg.draw(0, 0);
 		sprite.draw(0, 0);
 		overlay.draw(0, 0);
-		text_bg.draw(0, 0);
+		if (scenes.isActive(this)) {
+			text_bg.draw(0, 0);
 
-		if (data.contains("text")) {
-			drawTextbox();
+			if (data.contains("text")) {
+				drawTextbox();
+			}
 		}
 	}
 
@@ -129,7 +131,12 @@ namespace finalproject {
 			next_text.clear();
 			return;
 		}
-		readNextLine();
+
+		if (pressedCancel(key)) {
+			scenes.add(new Scene_Inventory(inventory));
+		} else {
+			readNextLine();
+		}
 	}
 
 	void Scene_Story::readNextLine() {

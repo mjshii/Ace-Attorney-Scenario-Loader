@@ -47,4 +47,8 @@ namespace finalproject {
 	bool SceneManager::empty() {
 		return scene_list.empty();
 	}
+
+	bool SceneManager::isActive(const Scene *scene) {
+		return scene_list.back().get() == scene;
+	}
 }
