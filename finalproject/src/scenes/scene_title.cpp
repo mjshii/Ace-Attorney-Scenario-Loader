@@ -54,7 +54,7 @@ namespace finalproject {
 		if (file.good()) {
 			json story;
 			file >> story;
-			scenes.replace(new Scene_Story(story));
+			scenes.replace(ScenePtr(new Scene_Story(story)));
 		} else {
 			input = "Bad file!";
 		}

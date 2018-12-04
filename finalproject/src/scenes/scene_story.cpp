@@ -6,11 +6,13 @@ namespace finalproject {
 		for (auto& item : file["inventory"]) {
 			inventory.push_back(InventoryItem(item["name"], item["desc"]));
 		}
+		loadResources();
 		processKey(OF_KEY_RETURN); // kick off story
 	}
 
 	void Scene_Story::loadResources() {
 		font.load(constants::kFontFile, constants::kFontSize);
+		name_font.load(constants::kFontFile, constants::kFontSize - 5);
 	}
 
 	std::string Scene_Story::wordWrap(std::string sentence, int width) {
@@ -77,8 +79,6 @@ namespace finalproject {
 	}
 
 	void Scene_Story::draw() {
-		ofSetColor(255);
-
 		bg.draw(0, 0);
 		sprite.draw(0, 0);
 		overlay.draw(0, 0);
@@ -92,14 +92,12 @@ namespace finalproject {
 	}
 
 	void Scene_Story::drawTextbox() {
-		font.load(constants::kFontFile, constants::kFontSize - 5);
-		font.drawString(
+		name_font.drawString(
 			name_text,
 			constants::kDialogueX,
 			constants::kNameY + font.getSize()
 		);
 
-		font.load(constants::kFontFile, constants::kFontSize);
 		font.drawString(
 			wordWrap(current_text, 1050),
 			constants::kDialogueX,
@@ -125,16 +123,16 @@ namespace finalproject {
 		if (!validKey(key)) {
 			return;
 		}
-		// fast forward text
-		if (!next_text.empty()) {
-			current_text += next_text;
-			next_text.clear();
-			return;
-		}
 
 		if (pressedCancel(key)) {
-			scenes.add(new Scene_Inventory(inventory));
+			scenes.add(ScenePtr(new Scene_Inventory(inventory)));
 		} else {
+			// fast forward text
+			if (!next_text.empty()) {
+				current_text += next_text;
+				next_text.clear();
+				return;
+			}
 			readNextLine();
 		}
 	}
@@ -153,7 +151,7 @@ namespace finalproject {
 		}
 		catch (std::out_of_range) {
 			bgm_channel.stop();
-			scenes.replace(new Scene_Title());
+			scenes.replace(ScenePtr(new Scene_Title()));
 		}
 	}
 

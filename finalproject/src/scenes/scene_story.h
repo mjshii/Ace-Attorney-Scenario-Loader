@@ -25,6 +25,7 @@ namespace finalproject {
 		ofImage text_bg;
 
 		ofSoundPlayer bgm_channel;
+		ofTrueTypeFont name_font;
 
 		void loadResources();
 		std::string wordWrap(std::string sentence, int width);

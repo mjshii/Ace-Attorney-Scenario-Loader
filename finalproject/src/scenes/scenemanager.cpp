@@ -3,17 +3,8 @@
 namespace finalproject {
 	SceneManager scenes;
 
-	void SceneManager::add(Scene* scene) {
-		add(ScenePtr(scene));
-	}
-
 	void SceneManager::add(ScenePtr scene) {
 		scene_list.push_back(scene);
-	}
-
-	void SceneManager::replace(Scene* scene) {
-		pop();
-		add(ScenePtr(scene));
 	}
 
 	void SceneManager::replace(ScenePtr scene) {
@@ -34,6 +25,7 @@ namespace finalproject {
 	}
 
 	void SceneManager::draw() {
+		ofSetColor(255);
 		for (int i = 0; i < scene_list.size(); i++)	{
 			scene_list[i]->draw();
 		}
@@ -48,7 +40,7 @@ namespace finalproject {
 		return scene_list.empty();
 	}
 
-	bool SceneManager::isActive(const Scene *scene) {
+	bool SceneManager::isActive(Scene* scene) {
 		return scene_list.back().get() == scene;
 	}
 }

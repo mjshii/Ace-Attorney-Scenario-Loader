@@ -11,10 +11,7 @@ namespace finalproject {
 		std::vector<ScenePtr> scene_list;
 
 		public:
-			void add(Scene* scene);
 			void add(ScenePtr scene);
-
-			void replace(Scene* scene);
 			void replace(ScenePtr scene);
 
 			void pop();
@@ -24,7 +21,7 @@ namespace finalproject {
 			void processKey(int key);
 
 			bool empty();
-			bool isActive(const Scene* scene);
+			bool isActive(Scene* scene);
 	};
 
 	// global variable

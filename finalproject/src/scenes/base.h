@@ -12,6 +12,7 @@ namespace finalproject {
 			ofTrueTypeFont font;
 
 		public:
+			~Scene();
 			virtual void update() = 0;
 			virtual void draw() = 0;
 

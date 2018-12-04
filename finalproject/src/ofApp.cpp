@@ -10,7 +10,7 @@ namespace finalproject {
 	}
 
 	void Game::loadScenes()	{
-		scenes.add(new Scene_Title());
+		scenes.add(ScenePtr(new Scene_Title()));
 	}
 
 	//--------------------------------------------------------------
