@@ -40,7 +40,8 @@ namespace finalproject {
 		return scene_list.empty();
 	}
 
-	bool SceneManager::isActive(Scene* scene) {
-		return scene_list.back().get() == scene;
+	int SceneManager::size() {
+		return scene_list.size();
 	}
+
 }

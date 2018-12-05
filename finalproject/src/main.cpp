@@ -8,7 +8,7 @@ using namespace finalproject;
 
 int main() {
 	ofSetupOpenGL(constants::kWindowWidth, constants::kWindowHeight, DISPLAY_MODE);
-	ofSetFrameRate(30);
+	ofSetFrameRate(20);
 
 	ofRunApp(new Game());
 }

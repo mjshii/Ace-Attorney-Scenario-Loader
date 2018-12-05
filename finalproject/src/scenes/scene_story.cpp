@@ -82,7 +82,8 @@ namespace finalproject {
 		bg.draw(0, 0);
 		sprite.draw(0, 0);
 		overlay.draw(0, 0);
-		if (scenes.isActive(this)) {
+
+		if (scenes.size() == 1) {
 			text_bg.draw(0, 0);
 
 			if (data.contains("text")) {
