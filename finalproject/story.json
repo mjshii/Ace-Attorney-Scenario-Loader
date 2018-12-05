@@ -7,6 +7,34 @@
     {
       "name": "affidavit",
       "desc": "a report on the body"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 0"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 1"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 2"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 3"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 4"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 5"
+    },
+    {
+      "name": "test",
+      "desc": "some random test item 6"
     }
   ],
   "story": [
@@ -99,6 +127,9 @@
               },
               {
                 "text": "that's it I'm done"
+              },
+              {
+                "cmd": "exit"
               }
             ]
           }
