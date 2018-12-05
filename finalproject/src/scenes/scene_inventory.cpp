@@ -14,19 +14,21 @@ namespace finalproject {
 
 	void Scene_Inventory::draw() {
 		bg.draw(0, 0);
-
-		for (int i = sel_index; i < std::min((int)inventory.size(), kRows*kCols); i++) {
+		
+		int start_i = (sel_index / 8) * 8;
+		for (int i = start_i; i < std::min((int)inventory.size(), start_i + kRows * kCols); i++) {
+			int adj_i = i % (kRows * kCols);
 			item.load(inventory[i].name + ".png");
 			item.draw(
-				kItemX + (i % kCols) * (item.getWidth() + kItemXPad),
-				kItemY + (i / kCols) * (item.getHeight() + kItemYPad)
+				kItemX + (adj_i % kCols) * (item.getWidth() + kItemXPad),
+				kItemY + (adj_i / kCols) * (item.getHeight() + kItemYPad)
 			);
 
 			if (i == sel_index) {
 				item.load("rect.png");
 				item.draw(
-					kItemX - kBorderWidth + (i % kCols) * (item.getWidth() + kItemXPad - kBorderWidth*2),
-					kItemY - kBorderWidth + (i / kCols) * (item.getHeight() + kItemYPad - kBorderWidth*2)
+					kItemX - kBorderWidth + (adj_i % kCols) * (item.getWidth() + kItemXPad - kBorderWidth*2),
+					kItemY - kBorderWidth + (adj_i / kCols) * (item.getHeight() + kItemYPad - kBorderWidth*2)
 				);
 			}
 		}
@@ -52,17 +54,27 @@ namespace finalproject {
 			return;
 		}
 
+		if (pressedOK(key)) {
+			scenes.add(ScenePtr(new Scene_ItemDesc));
+			return;
+		}
+
 		switch (key) {
 			case OF_KEY_RIGHT:	sel_index++;
 				break;
-			case OF_KEY_LEFT:	sel_index--;
+			case OF_KEY_LEFT:	sel_index = (sel_index - 1 < 0) ? (inventory.size() - 1) : (sel_index - 1);
 				break;
-			case OF_KEY_UP:		sel_index -= kCols;
+			case OF_KEY_UP:
+				if (sel_index % (kRows * kCols) - kCols >= 0) {
+					sel_index -= kCols;
+				}
 				break;
-			case OF_KEY_DOWN:	sel_index += kCols;
+			case OF_KEY_DOWN:
+				if (sel_index % (kRows * kCols) + kCols < kRows * kCols && sel_index + kCols < inventory.size()) {
+					sel_index += kCols;
+				}
 				break;
 		}
-		
 		sel_index %= inventory.size();
 	}
 
