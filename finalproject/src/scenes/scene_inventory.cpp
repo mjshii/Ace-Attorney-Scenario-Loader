@@ -55,7 +55,7 @@ namespace finalproject {
 		}
 
 		if (pressedOK(key)) {
-			scenes.add(ScenePtr(new Scene_ItemDesc));
+			scenes.add(ScenePtr(new Scene_ItemDesc(inventory)));
 			return;
 		}
 
