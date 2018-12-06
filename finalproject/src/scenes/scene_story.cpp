@@ -146,8 +146,7 @@ namespace finalproject {
 			}
 			shouldUpdate = true;
 
-		}
-		catch (std::out_of_range) {
+		} catch (std::out_of_range) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
 		}
