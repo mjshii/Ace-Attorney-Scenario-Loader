@@ -6,6 +6,8 @@ namespace finalproject {
 
 	class Scene_ItemDesc : public Scene {
 		std::vector<InventoryItem> inventory;
+		std::string wrapped_type;
+		std::string wrapped_desc;
 
 		ofImage bg;
 		ofImage item;
@@ -24,6 +26,7 @@ namespace finalproject {
 		const int kTypeWidth = 583;
 
 		bool pressedCancel(int key);
+		void refreshItem();
 
 	public:
 		Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag);

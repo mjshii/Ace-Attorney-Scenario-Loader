@@ -2,12 +2,18 @@
 
 namespace finalproject {
 	Scene_ItemDesc::Scene_ItemDesc(int index, const std::vector<InventoryItem>& inv) {
-		bg.load("image_desc.png");
-		item.load(inv[index].name + ".png");
 		font.load(constants::kFontFile, constants::kFontSize);
-
+		bg.load("image_desc.png");
 		inventory = inv;
 		sel_index = index;
+
+		refreshItem();
+	}
+
+	void Scene_ItemDesc::refreshItem() {
+		item.load(inventory[sel_index].name + ".png");
+		wrapped_desc = wordWrap(inventory[sel_index].desc, kTextWidth);
+		wrapped_type = wordWrap(inventory[sel_index].type, kTypeWidth);
 	}
 
 	void Scene_ItemDesc::update() {}
@@ -16,17 +22,15 @@ namespace finalproject {
 		bg.draw(0, 0);
 		item.draw(kImageX, kImageY);
 
-		//TODO: draw item and description
-
 		font.drawString(
-			wordWrap(inventory[sel_index].desc, kTextWidth),
+			wrapped_desc,
 			kTextX,
 			kTextY + font.getSize()
 		);
 
 		ofSetColor(0);
 		font.drawString(
-			wordWrap(inventory[sel_index].type, kTypeWidth),
+			wrapped_type,
 			kTypeX,
 			kTypeY + font.getSize()
 		);
@@ -50,6 +54,6 @@ namespace finalproject {
 				break;
 		}
 		sel_index %= inventory.size();
-		item.load(inventory[sel_index].name + ".png");
+		refreshItem();
 	}
 }

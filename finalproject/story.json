@@ -2,13 +2,13 @@
   "inventory": [
     {
       "name": "report",
-      "type": "Type: Documents \nReceived from a shady officer on an unnamed street corner.",
+      "type": "Type: Documents <br> Received from a shady officer on an unnamed street corner.",
       "desc": "a report on the body"
     },
     {
       "name": "affidavit",
-      "type": "Type: Documents \nReceived from some random guy.",
-      "desc": "a testimonial from some random guy. \nfiller text filler text filler text filler text filler text filler text."
+      "type": "Type: Documents <br> Received from some random guy.",
+      "desc": "a testimonial from some random guy. <br> filler text filler text filler text filler text filler text filler text."
     },
     {
       "name": "test",
@@ -43,7 +43,7 @@
     {
       "bg": "courtroom.png",
       "bgm": "bgm.mp3",
-      "text": "19:00 \nCourtroom no. 2 \nIn an undisclosed location"
+      "text": "19:00 <br> Courtroom no. 2 <br> In an undisclosed location"
     },
     {
       "name": "John Smith",

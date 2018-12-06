@@ -97,7 +97,7 @@ namespace finalproject {
 		);
 
 		font.drawString(
-			wordWrap(current_text, kDialogueWidth),
+			current_text,
 			constants::kDialogueX,
 			constants::kDialogueY + font.getSize()
 		);
@@ -142,7 +142,7 @@ namespace finalproject {
 
 			if (data.contains("text")) {
 				current_text = "";
-				next_text = data["text"].get<std::string>();
+				next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			}
 			shouldUpdate = true;
 

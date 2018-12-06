@@ -43,7 +43,7 @@ namespace finalproject {
 	}
 
 	bool Scene_Inventory::pressedOK(int key) {
-		return key == 'z' || key == OF_KEY_RETURN;
+		return key == 'z' || key == OF_KEY_RETURN || key == ' ';
 	}
 
 	bool Scene_Inventory::pressedCancel(int key) {
