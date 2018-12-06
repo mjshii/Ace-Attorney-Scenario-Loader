@@ -1,18 +1,28 @@
 #include "scene_itemdesc.h"
 
 namespace finalproject {
-	Scene_ItemDesc::Scene_ItemDesc(const std::vector<InventoryItem>& i) {
+	Scene_ItemDesc::Scene_ItemDesc(int index, const std::vector<InventoryItem>& inv) {
 		bg.load("image_desc.png");
+		item.load(inv[index].name + ".png");
 		font.load(constants::kFontFile, constants::kFontSize);
-		inventory = i;
+
+		inventory = inv;
+		sel_index = index;
 	}
 
 	void Scene_ItemDesc::update() {}
 
 	void Scene_ItemDesc::draw() {
 		bg.draw(0, 0);
+		item.draw(kImageX, kImageY);
 
 		//TODO: draw item and description
+
+		font.drawString(
+			wordWrap(inventory[sel_index].desc, kTextWidth),
+			kTextX,
+			kTextY + font.getSize()
+		);
 	}
 
 	bool Scene_ItemDesc::pressedCancel(int key) {
@@ -32,5 +42,6 @@ namespace finalproject {
 				break;
 		}
 		sel_index %= inventory.size();
+		item.load(inventory[sel_index].name + ".png");
 	}
 }

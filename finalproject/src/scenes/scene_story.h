@@ -27,6 +27,8 @@ namespace finalproject {
 		ofSoundPlayer bgm_channel;
 		ofTrueTypeFont name_font;
 
+		const int kDialogueWidth = 1050;
+
 		void loadResources();
 		void updateImages();
 		void updateTextbox();

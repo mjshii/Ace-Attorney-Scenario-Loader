@@ -25,6 +25,9 @@ namespace finalproject {
 
 		const int kItemX = 155;
 		const int kItemY = 235;
+		const int kItemWidth = 161;
+		const int kItemHeight = 155;
+
 		const int kItemXPad = 41;
 		const int kItemYPad = 40;
 		const int kBorderWidth = 4;

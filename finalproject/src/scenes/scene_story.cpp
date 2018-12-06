@@ -4,7 +4,11 @@ namespace finalproject {
 	Scene_Story::Scene_Story(const json &story_file) {
 		file = story_file;
 		for (auto& item : file["inventory"]) {
-			inventory.push_back(InventoryItem(item["name"], item["desc"]));
+			inventory.push_back(InventoryItem(
+				item["name"],
+				item.contains("type") ? item["type"] : "",
+				item["desc"]
+			));
 		}
 		loadResources();
 		processKey(OF_KEY_RETURN); // kick off story
@@ -93,7 +97,7 @@ namespace finalproject {
 		);
 
 		font.drawString(
-			wordWrap(current_text, 1050),
+			wordWrap(current_text, kDialogueWidth),
 			constants::kDialogueX,
 			constants::kDialogueY + font.getSize()
 		);

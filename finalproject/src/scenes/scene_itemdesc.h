@@ -12,10 +12,17 @@ namespace finalproject {
 
 		int sel_index = 0;
 		
+		const int kImageX = 89;
+		const int kImageY = 153;
+
+		const int kTextX = 53;
+		const int kTextY = 465;
+		const int kTextWidth = 975;
+		
 		bool pressedCancel(int key);
 
 	public:
-		Scene_ItemDesc(const std::vector<InventoryItem> &i);
+		Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag);
 
 		void update();
 		void draw();

@@ -20,15 +20,17 @@ namespace finalproject {
 			int adj_i = i % (kRows * kCols);
 			item.load(inventory[i].name + ".png");
 			item.draw(
-				kItemX + (adj_i % kCols) * (item.getWidth() + kItemXPad),
-				kItemY + (adj_i / kCols) * (item.getHeight() + kItemYPad)
+				kItemX + (adj_i % kCols) * (kItemWidth + kItemXPad),
+				kItemY + (adj_i / kCols) * (kItemHeight + kItemYPad),
+				kItemWidth,
+				kItemHeight
 			);
 
 			if (i == sel_index) {
 				item.load("rect.png");
 				item.draw(
-					kItemX - kBorderWidth + (adj_i % kCols) * (item.getWidth() + kItemXPad - kBorderWidth*2),
-					kItemY - kBorderWidth + (adj_i / kCols) * (item.getHeight() + kItemYPad - kBorderWidth*2)
+					kItemX - kBorderWidth + (adj_i % kCols) * (kItemWidth + kItemXPad),
+					kItemY - kBorderWidth + (adj_i / kCols) * (kItemHeight + kItemYPad)
 				);
 			}
 		}
@@ -54,7 +56,7 @@ namespace finalproject {
 			return;
 		}
 		if (pressedOK(key)) {
-			scenes.add(ScenePtr(new Scene_ItemDesc(inventory)));
+			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory)));
 			return;
 		}
 

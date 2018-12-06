@@ -5,9 +5,10 @@ namespace finalproject {
 
 	struct InventoryItem {
 		std::string name;
+		std::string type;
 		std::string desc;
 
-		InventoryItem(std::string n, std::string d) : name(n), desc(d) {};
+		InventoryItem(std::string n, std::string t, ::string d) : name(n), type(t), desc(d) {};
 	};
 
 }
