@@ -2,12 +2,13 @@
   "inventory": [
     {
       "name": "report",
-      "type": "Type: Documents \nReceived from some shady officer.",
+      "type": "Type: Documents \nReceived from a shady officer on an unnamed street corner.",
       "desc": "a report on the body"
     },
     {
       "name": "affidavit",
-      "desc": "a testimonial from some random guy. filler text filler text filler text filler text filler text filler text."
+      "type": "Type: Documents \nReceived from some random guy.",
+      "desc": "a testimonial from some random guy. \nfiller text filler text filler text filler text filler text filler text."
     },
     {
       "name": "test",

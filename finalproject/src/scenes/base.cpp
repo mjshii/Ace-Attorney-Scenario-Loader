@@ -23,6 +23,7 @@ std::string finalproject::Scene::wordWrap(std::string sentence, int width) {
 	std::string wrapped = "";
 	std::string last_line = "";
 	for (int i = 0; i < words.size(); i++) {
+		std::cout << words[i] << ": ";
 		if (words[i].front() == '\n') {
 			wrapped += last_line;
 			last_line = words[i];

@@ -23,6 +23,14 @@ namespace finalproject {
 			kTextX,
 			kTextY + font.getSize()
 		);
+
+		ofSetColor(0);
+		font.drawString(
+			wordWrap(inventory[sel_index].type, kTypeWidth),
+			kTypeX,
+			kTypeY + font.getSize()
+		);
+		ofSetColor(255);
 	}
 
 	bool Scene_ItemDesc::pressedCancel(int key) {

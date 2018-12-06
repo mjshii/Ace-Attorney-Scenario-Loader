@@ -18,7 +18,11 @@ namespace finalproject {
 		const int kTextX = 53;
 		const int kTextY = 465;
 		const int kTextWidth = 975;
-		
+
+		const int kTypeX = 398;
+		const int kTypeY = 236;
+		const int kTypeWidth = 583;
+
 		bool pressedCancel(int key);
 
 	public:
