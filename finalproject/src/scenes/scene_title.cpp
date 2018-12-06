@@ -8,6 +8,10 @@ namespace finalproject {
 	Scene_Title::Scene_Title() {
 		font.load(constants::kFontFile, constants::kTitleFontSize);
 		bg.load(constants::kTitleBG);
+
+		if (constants::kDebugMode) {
+			input = "story.json";
+		}
 	}
 
 	void Scene_Title::update() {}

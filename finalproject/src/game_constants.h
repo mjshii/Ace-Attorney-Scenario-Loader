@@ -3,6 +3,8 @@
 namespace finalproject {
 namespace constants {
 
+	const bool kDebugMode = true;
+
 	const std::string kFontFile = "PT_Sans-Web-Regular.ttf";
 	const int kFontSize = 30;
 	const int kTitleFontSize = 45;

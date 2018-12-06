@@ -11,6 +11,8 @@ namespace finalproject {
 
 	void Scene_ItemDesc::draw() {
 		bg.draw(0, 0);
+
+		//TODO: draw item and description
 	}
 
 	bool Scene_ItemDesc::pressedCancel(int key) {

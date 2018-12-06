@@ -28,7 +28,6 @@ namespace finalproject {
 		ofTrueTypeFont name_font;
 
 		void loadResources();
-		std::string wordWrap(std::string sentence, int width);
 		void updateImages();
 		void updateTextbox();
 		void updateSounds();

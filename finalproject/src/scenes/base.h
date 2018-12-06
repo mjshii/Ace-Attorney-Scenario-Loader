@@ -17,6 +17,8 @@ namespace finalproject {
 			virtual void draw() = 0;
 
 			virtual void processKey(int key) = 0;
+
+			std::string wordWrap(std::string sentence, int width);
 	};
 
 } //namespace finalproject

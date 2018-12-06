@@ -49,6 +49,9 @@
       "text": "Before the testimony, I say this"
     },
     {
+      "text": "Here is a very long bit of text that will hopefully be wrapped so as to test the word-wrapping function. I don't usually say this much but for demo purposes I suppose I must."
+    },
+    {
       "bg": "stand_bg.png",
       "text": "Now I'm on the witness stand",
       "overlay": "stand.png"

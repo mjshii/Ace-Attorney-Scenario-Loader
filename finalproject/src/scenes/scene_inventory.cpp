@@ -53,22 +53,26 @@ namespace finalproject {
 			scenes.pop();
 			return;
 		}
-
 		if (pressedOK(key)) {
 			scenes.add(ScenePtr(new Scene_ItemDesc(inventory)));
 			return;
 		}
 
 		switch (key) {
-			case OF_KEY_RIGHT:	sel_index++;
+			case OF_KEY_RIGHT:
+				sel_index++;
 				break;
-			case OF_KEY_LEFT:	sel_index = (sel_index - 1 < 0) ? (inventory.size() - 1) : (sel_index - 1);
+
+			case OF_KEY_LEFT:
+				sel_index = (sel_index - 1 < 0) ? (inventory.size() - 1) : (sel_index - 1);
 				break;
+
 			case OF_KEY_UP:
 				if (sel_index % (kRows * kCols) - kCols >= 0) {
 					sel_index -= kCols;
 				}
 				break;
+
 			case OF_KEY_DOWN:
 				if (sel_index % (kRows * kCols) + kCols < kRows * kCols && sel_index + kCols < inventory.size()) {
 					sel_index += kCols;

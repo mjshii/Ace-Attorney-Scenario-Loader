@@ -15,13 +15,6 @@ namespace finalproject {
 		name_font.load(constants::kFontFile, constants::kFontSize - 5);
 	}
 
-	std::string Scene_Story::wordWrap(std::string sentence, int width) {
-		if (font.stringWidth(sentence) <= width) {
-			return sentence;
-		}
-		return "needs wrapping"; // TODO: text wrap
-	}
-
 	void Scene_Story::update() {
 		if (shouldUpdate) {
 			updateImages();
