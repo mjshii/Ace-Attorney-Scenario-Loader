@@ -2,6 +2,7 @@
   "inventory": [
     {
       "name": "report",
+      "type": "a report on the body",
       "desc": "a report on the body"
     },
     {
@@ -41,7 +42,7 @@
     {
       "bg": "courtroom.png",
       "bgm": "bgm.mp3",
-      "text": "19:00 Courtroom no. 2"
+      "text": "19:00 \nCourtroom no. 2 \nIn an undisclosed location"
     },
     {
       "name": "John Smith",

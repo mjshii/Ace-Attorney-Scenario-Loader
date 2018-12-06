@@ -19,13 +19,16 @@ std::string finalproject::Scene::wordWrap(std::string sentence, int width) {
 	std::istream_iterator<std::string> end;
 	std::vector<std::string> words(begin, end);
 
+	// Word wrap
 	std::string wrapped = "";
 	std::string last_line = "";
 	for (int i = 0; i < words.size(); i++) {
-		if (last_line.empty() || font.stringWidth(last_line + words[i]) < width) {
+		if (words[i].front() == '\n') {
+			wrapped += last_line;
+			last_line = words[i];
+		} else if (last_line.empty() || font.stringWidth(last_line + words[i]) <= width) {
 			last_line += words[i] + " ";
-		}
-		else {
+		} else {
 			wrapped += last_line + "\n";
 			last_line = words[i] + " ";
 		}
