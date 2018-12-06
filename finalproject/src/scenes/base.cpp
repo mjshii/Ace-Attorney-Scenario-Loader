@@ -9,8 +9,6 @@ finalproject::Scene::~Scene() {
 }
 
 std::string finalproject::Scene::wordWrap(std::string sentence, int width) {
-	std::cout << "Word Wrap called" << std::endl;
-
 	// String splitting taken from https://stackoverflow.com/a/5607650
 	std::stringstream word_stream(sentence);
 	std::istream_iterator<std::string> begin(word_stream);

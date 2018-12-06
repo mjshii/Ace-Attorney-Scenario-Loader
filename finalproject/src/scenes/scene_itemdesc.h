@@ -17,6 +17,11 @@ namespace finalproject {
 		const int kImageX = 89;
 		const int kImageY = 153;
 
+		const int kNameX = 386;
+		const int kNameY = 155;
+		const int kNameWidth = 606;
+		const int kNameHeight = 67;
+
 		const int kTextX = 53;
 		const int kTextY = 465;
 		const int kTextWidth = 975;

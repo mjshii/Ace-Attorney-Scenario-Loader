@@ -23,17 +23,15 @@ namespace finalproject {
 		item.draw(kImageX, kImageY);
 
 		font.drawString(
-			wrapped_desc,
-			kTextX,
-			kTextY + font.getSize()
+			inventory[sel_index].name,
+			kNameX + (kNameWidth - font.stringWidth(inventory[sel_index].name)) / 2,
+			kNameY + (font.getLineHeight() + font.getDescenderHeight() / 2)
 		);
 
+		font.drawString(wrapped_desc, kTextX, kTextY + font.getSize());
+
 		ofSetColor(0);
-		font.drawString(
-			wrapped_type,
-			kTypeX,
-			kTypeY + font.getSize()
-		);
+		font.drawString(wrapped_type, kTypeX, kTypeY + font.getSize());
 		ofSetColor(255);
 	}
 
@@ -53,7 +51,12 @@ namespace finalproject {
 			case OF_KEY_LEFT:	sel_index--;
 				break;
 		}
-		sel_index %= inventory.size();
+
+		if (sel_index < 0) {
+			sel_index += inventory.size();
+		} else if (sel_index >= inventory.size()) {
+			sel_index -= inventory.size();
+		}
 		refreshItem();
 	}
 }
