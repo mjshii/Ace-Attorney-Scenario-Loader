@@ -6,11 +6,20 @@
 using nlohmann::json;
 
 namespace finalproject {
+	enum GameState {
+		STORY,
+		TESTIMONY,
+		PRESS,
+		PRESENT,
+		AFTERWORD
+	};
 
 	class Scene_Story : public Scene {
 		json file;
 		json data;
 		int current_index = -1;
+		int testimony_index = -1;
+
 		std::string name_text;
 		std::string current_text;
 		std::string next_text;
@@ -40,6 +49,8 @@ namespace finalproject {
 		bool pressedCancel(int key);
 
 		void readNextLine();
+		void readStoryLine();
+		void readTestimonyLine();
 
 	public:
 		Scene_Story(const json &story_file);

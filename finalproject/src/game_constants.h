@@ -5,7 +5,7 @@ namespace constants {
 
 	const bool kDebugMode = true;
 
-	const std::string kFontFile = "PT_Sans-Web-Regular.ttf";
+	const std::string kFontFile = "SourceSansPro-Regular.ttf";
 	const int kFontSize = 30;
 	const int kTitleFontSize = 45;
 
@@ -17,6 +17,7 @@ namespace constants {
 	const int kDialogueY = 520;
 
 	const std::string kTitleBG = "title.png";
+	const std::string kControlsBG = "controls.png";
 
 } // namespace constants
 } // namespace finalproject

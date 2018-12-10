@@ -8,9 +8,7 @@ namespace finalproject {
 		inventory = i;
 	}
 
-	void Scene_Inventory::update() {
-
-	}
+	void Scene_Inventory::update() {}
 
 	void Scene_Inventory::draw() {
 		bg.draw(0, 0);

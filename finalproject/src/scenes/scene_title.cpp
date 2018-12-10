@@ -28,6 +28,11 @@ namespace finalproject {
 	}
 
 	void Scene_Title::processKey(int key) {
+		if (key == OF_KEY_CONTROL) {
+			scenes.add(ScenePtr(new Scene_Controls()));
+			return;
+		}
+
 		if (input == "Bad file!") {
 			input.clear();
 			return;

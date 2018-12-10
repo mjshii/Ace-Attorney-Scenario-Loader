@@ -104,13 +104,11 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::pressedOK(int key) {
-		return key == OF_KEY_RETURN || key == ' ' ||
-			key == 'z' || key == OF_KEY_RIGHT;
+		return key == OF_KEY_RETURN || key == ' ' || key == 'z';
 	}
 
 	bool Scene_Story::pressedCancel(int key) {
-		return key == OF_KEY_ESC || key == 'x' ||
-			key == OF_KEY_LEFT;
+		return key == OF_KEY_ESC || key == 'x';
 	}
 
 	bool Scene_Story::validKey(int key) {
@@ -124,6 +122,7 @@ namespace finalproject {
 
 		if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory)));
+
 		} else {
 			// fast forward text
 			if (!next_text.empty()) {
@@ -136,6 +135,14 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readNextLine() {
+		if (testimony_index < 0) {
+			readStoryLine();
+		} else {
+			readTestimonyLine();
+		}
+	}
+
+	void Scene_Story::readStoryLine() {
 		try {
 			current_index++;
 			data = file["story"].at(current_index);
@@ -144,6 +151,7 @@ namespace finalproject {
 				current_text = "";
 				next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			}
+
 			shouldUpdate = true;
 
 		} catch (std::out_of_range) {
