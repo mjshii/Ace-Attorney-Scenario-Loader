@@ -143,9 +143,15 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readStoryLine() {
+		std::cout << "Reading story" << std::endl;
 		try {
 			current_index++;
 			data = file["story"].at(current_index);
+
+			if (data.contains("testimony")) {
+				readTestimonyLine();
+				return;
+			}
 
 			if (data.contains("text")) {
 				current_text = "";
@@ -157,6 +163,30 @@ namespace finalproject {
 		} catch (std::out_of_range) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
+		}
+	}
+
+	void Scene_Story::readTestimonyLine() {
+		std::cout << "Reading testimony" << std::endl;
+		try {
+			testimony_index++;
+			std::cout << "Index " << testimony_index << std::endl;
+			data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+
+			if (data.contains("text")) {
+				current_text = "";
+				next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+			} else {
+				testimony_index = -1;
+				readStoryLine();
+			}
+
+			shouldUpdate = true;
+
+		} catch (std::out_of_range) {
+			std::cout << "Out of range." << std::endl;
+			testimony_index = -1;
+			readStoryLine();
 		}
 	}
 
