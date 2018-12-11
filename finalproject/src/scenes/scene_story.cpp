@@ -140,59 +140,46 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readNextLine(int key) {
-		if (testimony_index < 0) {
-			readStoryLine();
-		} else {
-			readTestimonyLine(key);
-		}
-	}
-
-	void Scene_Story::readStoryLine() {
-		std::cout << "Reading story" << std::endl;
 		try {
-			current_index++;
-			data = file["story"].at(current_index);
-
-			if (data.contains("testimony")) {
-				readTestimonyLine(0);
-				return;
+			if (testimony_index < 0) {
+				readStoryLine();
+			} else {
+				readTestimonyLine(key);
 			}
-
-			if (data.contains("text")) {
-				current_text = "";
-				next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
-			}
-
-			shouldUpdate = true;
-
 		} catch (std::out_of_range) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
 		}
 	}
 
-	void Scene_Story::readTestimonyLine(int key) {
-		std::cout << "Reading testimony" << std::endl;
-		try {
-			updateTestimonyIndex(key);
+	void Scene_Story::readStoryLine() {
+		current_index++;
+		data = file["story"].at(current_index);
 
-			std::cout << "Index " << testimony_index << std::endl;
-			data = file["story"][current_index]["testimony"]["statements"][testimony_index];
-
-			if (data.contains("text")) {
-				current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
-			} else {
-				testimony_index = -1;
-				readTestimonyLine(0);
-			}
-
-			shouldUpdate = true;
-
-		} catch (std::out_of_range) {
-			std::cout << "Out of range." << std::endl;
-			testimony_index = -1;
-			readStoryLine();
+		if (data.contains("testimony")) {
+			readTestimonyLine(0);
+			return;
 		}
+		if (data.contains("text")) {
+			current_text = "";
+			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+		}
+
+		shouldUpdate = true;
+	}
+
+	void Scene_Story::readTestimonyLine(int key) {
+		updateTestimonyIndex(key);
+		data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+
+		if (data.contains("text")) {
+			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+		} else {
+			testimony_index = -1;
+			readTestimonyLine(0);
+		}
+
+		shouldUpdate = true;
 	}
 
 	void Scene_Story::updateTestimonyIndex(int key) {
