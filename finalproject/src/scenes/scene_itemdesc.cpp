@@ -39,8 +39,17 @@ namespace finalproject {
 		return key == 'x' || key == OF_KEY_ESC;
 	}
 
+	bool Scene_ItemDesc::pressedPresent(int key) {
+		return key == 'd';
+	}
+
 	void Scene_ItemDesc::processKey(int key) {
 		if (pressedCancel(key)) {
+			scenes.pop();
+			return;
+		} else if (pressedPresent(key)) {
+			scenes.setData(inventory[sel_index].name);
+			scenes.pop();
 			scenes.pop();
 			return;
 		}

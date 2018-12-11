@@ -6,13 +6,6 @@
 using nlohmann::json;
 
 namespace finalproject {
-	enum GameState {
-		STORY,
-		TESTIMONY,
-		PRESS,
-		PRESENT,
-		AFTERWORD
-	};
 
 	class Scene_Story : public Scene {
 		json file;
@@ -20,6 +13,8 @@ namespace finalproject {
 		int current_index = -1;
 		int testimony_index = -1;
 		int press_index = -1;
+
+		const int kDefaultKey = OF_KEY_RETURN;
 
 		std::string name_text;
 		std::string current_text;

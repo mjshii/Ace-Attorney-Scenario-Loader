@@ -9,6 +9,7 @@ namespace finalproject {
 
 	class SceneManager {
 		std::vector<ScenePtr> scene_list;
+		std::string data;
 
 		public:
 			void add(ScenePtr scene);
@@ -22,6 +23,9 @@ namespace finalproject {
 
 			bool empty();
 			int size();
+
+			void setData(std::string d);
+			std::string getData();
 	};
 
 	// global variable

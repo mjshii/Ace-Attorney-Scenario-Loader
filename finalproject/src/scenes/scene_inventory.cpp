@@ -8,6 +8,10 @@ namespace finalproject {
 		inventory = i;
 	}
 
+	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem>& i, bool presentOK) {
+		canPresent = presentOK;
+	}
+
 	void Scene_Inventory::update() {}
 
 	void Scene_Inventory::draw() {
@@ -48,13 +52,20 @@ namespace finalproject {
 		return key == 'x' || key == OF_KEY_ESC;
 	}
 
+	bool Scene_Inventory::pressedPresent(int key) {
+		return key == 'd';
+	}
+
 	void Scene_Inventory::processKey(int key) {
 		if (pressedCancel(key)) {
 			scenes.pop();
 			return;
-		}
-		if (pressedOK(key)) {
+		} else if (pressedOK(key)) {
 			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory)));
+			return;
+		} else if (pressedPresent(key)) {
+			scenes.setData(inventory[sel_index].name);
+			scenes.pop();
 			return;
 		}
 

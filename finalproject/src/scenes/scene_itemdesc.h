@@ -31,6 +31,7 @@ namespace finalproject {
 		const int kTypeWidth = 583;
 
 		bool pressedCancel(int key);
+		bool pressedPresent(int key);
 		void refreshItem();
 
 	public:

@@ -11,7 +11,7 @@ namespace finalproject {
 			));
 		}
 		loadResources();
-		processKey(OF_KEY_RETURN); // kick off story
+		processKey(kDefaultKey); // kick off story
 	}
 
 	void Scene_Story::loadResources() {
@@ -112,7 +112,7 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::pressedCancel(int key) {
-		return key == OF_KEY_ESC || key == 'x';
+		return key == 'x';
 	}
 
 	bool Scene_Story::validKey(int key) {
@@ -157,7 +157,7 @@ namespace finalproject {
 		data = file["story"].at(current_index);
 
 		if (data.contains("testimony")) {
-			readTestimonyLine(0);
+			readTestimonyLine(kDefaultKey);
 			return;
 		}
 		if (data.contains("text")) {
@@ -189,7 +189,7 @@ namespace finalproject {
 			} else {
 				testimony_index = -1;
 			}
-			readTestimonyLine(OF_KEY_RETURN);
+			readTestimonyLine(kDefaultKey);
 		}
 
 		shouldUpdate = true;

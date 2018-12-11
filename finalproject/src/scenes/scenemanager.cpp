@@ -44,4 +44,12 @@ namespace finalproject {
 		return scene_list.size();
 	}
 
+	void SceneManager::setData(std::string d) {
+		data = d;
+	}
+
+	std::string SceneManager::getData() {
+		return std::string();
+	}
+
 }
