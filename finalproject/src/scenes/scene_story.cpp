@@ -88,7 +88,7 @@ namespace finalproject {
 				drawTextbox();
 			}
 		}
-		if (testimony_index >= 0) {
+		if (testimony_index >= 0 && press_index < 0) {
 			testimony_arrows.draw(0, 0);
 		}
 	}
@@ -146,7 +146,7 @@ namespace finalproject {
 			} else {
 				readTestimonyLine(key);
 			}
-		} catch (std::out_of_range) {
+		} catch (std::exception) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
 		}
@@ -161,7 +161,7 @@ namespace finalproject {
 			return;
 		}
 		if (data.contains("text")) {
-			current_text = "";
+			current_text.clear();
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 		}
 
@@ -169,14 +169,27 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readTestimonyLine(int key) {
-		updateTestimonyIndex(key);
-		data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+		if (press_index >= 0 || key == OF_KEY_DOWN) {
+			press_index++;
+			data = file["story"][current_index]["testimony"]["statements"][testimony_index]["press"][press_index];
+		} else {
+			updateTestimonyIndex(key);
+			data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+		}
 
 		if (data.contains("text")) {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+			if (press_index >= 0) {
+				next_text = current_text;
+				current_text.clear();
+			}
 		} else {
-			testimony_index = -1;
-			readTestimonyLine(0);
+			if (press_index >= 0) {
+				press_index = -1;
+			} else {
+				testimony_index = -1;
+			}
+			readTestimonyLine(OF_KEY_RETURN);
 		}
 
 		shouldUpdate = true;

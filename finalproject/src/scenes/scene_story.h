@@ -19,7 +19,7 @@ namespace finalproject {
 		json data;
 		int current_index = -1;
 		int testimony_index = -1;
-		int testtext_index = -1;
+		int press_index = -1;
 
 		std::string name_text;
 		std::string current_text;
