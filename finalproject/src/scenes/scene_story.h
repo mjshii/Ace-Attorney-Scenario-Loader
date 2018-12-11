@@ -32,6 +32,7 @@ namespace finalproject {
 		ofImage sprite;
 		ofImage overlay;
 		ofImage text_bg;
+		ofImage testimony_arrows;
 
 		ofSoundPlayer bgm_channel;
 		ofTrueTypeFont name_font;

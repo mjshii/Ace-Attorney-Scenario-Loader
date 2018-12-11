@@ -17,6 +17,7 @@ namespace finalproject {
 	void Scene_Story::loadResources() {
 		font.load(constants::kFontFile, constants::kFontSize);
 		name_font.load(constants::kFontFile, constants::kFontSize - 5);
+		testimony_arrows.load("testimony_arrows.png");
 	}
 
 	void Scene_Story::update() {
@@ -86,6 +87,9 @@ namespace finalproject {
 			if (data.contains("text")) {
 				drawTextbox();
 			}
+		}
+		if (testimony_index >= 0) {
+			testimony_arrows.draw(0, 0);
 		}
 	}
 
