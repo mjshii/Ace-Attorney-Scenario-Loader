@@ -112,7 +112,8 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::validKey(int key) {
-		return pressedOK(key) || pressedCancel(key);
+		return pressedOK(key) || pressedCancel(key) || 
+			key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_UP || key == OF_KEY_DOWN;
 	}
 
 	void Scene_Story::processKey(int key) {
@@ -130,15 +131,15 @@ namespace finalproject {
 				next_text.clear();
 				return;
 			}
-			readNextLine();
+			readNextLine(key);
 		}
 	}
 
-	void Scene_Story::readNextLine() {
+	void Scene_Story::readNextLine(int key) {
 		if (testimony_index < 0) {
 			readStoryLine();
 		} else {
-			readTestimonyLine();
+			readTestimonyLine(key);
 		}
 	}
 
@@ -149,7 +150,7 @@ namespace finalproject {
 			data = file["story"].at(current_index);
 
 			if (data.contains("testimony")) {
-				readTestimonyLine();
+				readTestimonyLine(0);
 				return;
 			}
 
@@ -166,19 +167,19 @@ namespace finalproject {
 		}
 	}
 
-	void Scene_Story::readTestimonyLine() {
+	void Scene_Story::readTestimonyLine(int key) {
 		std::cout << "Reading testimony" << std::endl;
 		try {
-			testimony_index++;
+			updateTestimonyIndex(key);
+
 			std::cout << "Index " << testimony_index << std::endl;
 			data = file["story"][current_index]["testimony"]["statements"][testimony_index];
 
 			if (data.contains("text")) {
-				current_text = "";
-				next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+				current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			} else {
 				testimony_index = -1;
-				readStoryLine();
+				readTestimonyLine(0);
 			}
 
 			shouldUpdate = true;
@@ -187,6 +188,17 @@ namespace finalproject {
 			std::cout << "Out of range." << std::endl;
 			testimony_index = -1;
 			readStoryLine();
+		}
+	}
+
+	void Scene_Story::updateTestimonyIndex(int key) {
+		if (key == OF_KEY_LEFT) {
+			if (testimony_index <= 0) {
+				return;
+			}
+			testimony_index--;
+		} else {
+			testimony_index++;
 		}
 	}
 

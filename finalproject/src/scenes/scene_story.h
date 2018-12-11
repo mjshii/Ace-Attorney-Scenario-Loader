@@ -48,9 +48,10 @@ namespace finalproject {
 		bool pressedOK(int key);
 		bool pressedCancel(int key);
 
-		void readNextLine();
+		void readNextLine(int key);
 		void readStoryLine();
-		void readTestimonyLine();
+		void readTestimonyLine(int key);
+		void updateTestimonyIndex(int key);
 
 	public:
 		Scene_Story(const json &story_file);
