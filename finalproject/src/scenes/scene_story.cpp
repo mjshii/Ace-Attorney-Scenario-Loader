@@ -4,11 +4,7 @@ namespace finalproject {
 	Scene_Story::Scene_Story(const json &story_file) {
 		file = story_file;
 		for (auto& item : file["inventory"]) {
-			inventory.push_back(InventoryItem(
-				item["name"],
-				item.contains("type") ? item["type"] : "",
-				item["desc"]
-			));
+			addItem(item);
 		}
 		loadResources();
 		processKey(kDefaultKey); // kick off story
@@ -28,7 +24,7 @@ namespace finalproject {
 			updateImages();
 			updateTextbox();
 			updateSounds();
-			
+
 			shouldUpdate = false;
 		}
 	}
@@ -41,7 +37,8 @@ namespace finalproject {
 		if (data.contains("image")) {
 			if (data["image"].size() > 0) {
 				sprite.load(data["image"].get<std::string>());
-			} else {
+			}
+			else {
 				sprite.clear();
 			}
 		}
@@ -49,7 +46,8 @@ namespace finalproject {
 		if (data.contains("overlay")) {
 			if (data["overlay"].size() > 0) {
 				overlay.load(data["overlay"].get<std::string>());
-			} else {
+			}
+			else {
 				overlay.clear();
 			}
 		}
@@ -114,7 +112,7 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::validKey(int key) {
-		return pressedOK(key) || pressedCancel(key) || 
+		return pressedOK(key) || pressedCancel(key) ||
 			(canPresent() && (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
 	}
 
@@ -126,7 +124,8 @@ namespace finalproject {
 		if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
 
-		} else {
+		}
+		else {
 			// fast forward text
 			if (!next_text.empty()) {
 				current_text += next_text;
@@ -141,11 +140,13 @@ namespace finalproject {
 		try {
 			if (testimony_index < 0) {
 				readStoryLine();
-			} else {
+			}
+			else {
 				readTestimonyLine(key);
 			}
 			shouldUpdate = true;
-		} catch (std::exception) {
+		}
+		catch (std::exception) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
 		}
@@ -154,10 +155,16 @@ namespace finalproject {
 	void Scene_Story::readStoryLine() {
 		story_index++;
 		data = file["story"].at(story_index);
-
 		if (data.contains("testimony")) {
 			readTestimonyLine(kDefaultKey);
 			return;
+		}
+
+		if (data.contains("add item")) {
+			addItem(data["add item"]);
+		}
+		if (data.contains("remove item")) {
+			removeItem(data["remove item"].get<std::string>());
 		}
 		if (data.contains("text")) {
 			current_text.clear();
@@ -165,24 +172,38 @@ namespace finalproject {
 		}
 	}
 
+	bool Scene_Story::addItem(json item) {
+		InventoryItem new_item(
+			item["name"],
+			item.contains("image") ? item["image"] : item["name"],
+			item.contains("type") ? item["type"] : "",
+			item["desc"]
+		);
+		if (std::find(inventory.begin(), inventory.end(), new_item) == inventory.end()) {
+			inventory.push_back(new_item);
+			return true;
+		}
+		return false;
+	}
+
+	bool Scene_Story::removeItem(std::string name) {
+		InventoryItem item(name, "", "");
+		if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
+			return false;
+		}
+		inventory.erase(std::remove(inventory.begin(), inventory.end(), item), inventory.end());
+		return true;
+	}
+
 	void Scene_Story::readPressLine(int key) {
 		press_index++;
 		data = file["story"][story_index]["testimony"]["statements"][testimony_index]["press"][press_index];
 
-		if (data.contains("add item")) {
-			InventoryItem item(
-				data["add item"]["name"],
-				data["add item"].contains("type") ? data["add item"]["type"] : "",
-				data["add item"]["desc"]
-			);
-			if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
-				inventory.push_back(item);
-			} else {
-				readPressLine(key);
-				return;
-			}
+		if ((data.contains("add item") && !addItem(data["add item"])) ||
+			(data.contains("remove item") && !removeItem(data["remove item"].get<std::string>()))) {
+			readPressLine(key);
+			return;
 		}
-
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
@@ -193,7 +214,25 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readPresentLine(int key) {
+		present_index++;
+		std::cout << present_index << std::endl;
 
+		data = file["story"][story_index]["testimony"]["statements"][testimony_index];
+		if (data.contains("present " + last_data)) {
+			data = data["present " + last_data][present_index];
+		} else {
+			data = file["story"][story_index]["default present"][present_index];
+		}
+
+		std::cout << data << std::endl;
+
+		if (data.contains("text")) {
+			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+			current_text.clear();
+		} else {
+			present_index = -1;
+			readTestimonyLine(kDefaultKey);
+		}
 	}
 
 	void Scene_Story::readStatementLine(int key) {
@@ -223,10 +262,13 @@ namespace finalproject {
 	}
 
 	void Scene_Story::updateData() {
-		if (scenes.getData() != last_data) {
+		if (!scenes.getData().empty() && last_data != scenes.getData()) {
+			std::cout << "updating data" << std::endl;
 			// update item presenting
 			last_data = scenes.getData();
-			
+			scenes.setData("");
+
+			readPresentLine(kDefaultKey);
 			shouldUpdate = true;
 		}
 	}

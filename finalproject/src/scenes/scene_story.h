@@ -63,6 +63,8 @@ namespace finalproject {
 
 		void updateTestimonyIndex(int key);
 		bool canPresent();
+		bool addItem(json item);
+		bool removeItem(std::string name);
 
 	public:
 		Scene_Story(const json &story_file);

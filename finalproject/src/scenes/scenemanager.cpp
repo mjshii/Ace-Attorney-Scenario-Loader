@@ -41,7 +41,7 @@ namespace finalproject {
 	}
 
 	int SceneManager::size() {
-		return scene_list.size();
+		return (int)scene_list.size();
 	}
 
 	void SceneManager::setData(std::string d) {
@@ -49,7 +49,7 @@ namespace finalproject {
 	}
 
 	std::string SceneManager::getData() {
-		return std::string();
+		return data;
 	}
 
 }

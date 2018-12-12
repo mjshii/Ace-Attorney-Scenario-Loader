@@ -12,7 +12,7 @@ namespace finalproject {
 	}
 
 	void Scene_ItemDesc::refreshItem() {
-		item.load(inventory[sel_index].name + ".png");
+		item.load(inventory[sel_index].image + ".png");
 		wrapped_desc = wordWrap(inventory[sel_index].desc, kTextWidth);
 		wrapped_type = wordWrap(inventory[sel_index].type, kTypeWidth);
 	}
@@ -24,7 +24,7 @@ namespace finalproject {
 		item.draw(kImageX, kImageY);
 
 		font.drawString(
-			inventory[sel_index].name,
+			inventory[sel_index].image,
 			kNameX + (kNameWidth - font.stringWidth(inventory[sel_index].name)) / 2,
 			kNameY + (font.getLineHeight() + font.getDescenderHeight() / 2)
 		);

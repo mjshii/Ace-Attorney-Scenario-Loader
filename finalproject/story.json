@@ -11,31 +11,38 @@
       "desc": "a testimonial from some random guy. <br> filler text filler text filler text filler text filler text filler text."
     },
     {
-      "name": "test",
+      "name": "test 0",
+      "image": "test",
       "desc": "some random test item 0"
     },
     {
-      "name": "test",
+      "name": "test 1",
+      "image": "test",
       "desc": "some random test item 1"
     },
     {
-      "name": "test",
+      "name": "test 2",
+      "image": "test",
       "desc": "some random test item 2"
     },
     {
-      "name": "test",
+      "name": "test 3",
+      "image": "test",
       "desc": "some random test item 3"
     },
     {
-      "name": "test",
+      "name": "test 4",
+      "image": "test",
       "desc": "some random test item 4"
     },
     {
-      "name": "test",
+      "name": "test 5",
+      "image": "test",
       "desc": "some random test item 5"
     },
     {
-      "name": "test",
+      "name": "test 6",
+      "image": "test",
       "desc": "some random test item 6"
     }
   ],
