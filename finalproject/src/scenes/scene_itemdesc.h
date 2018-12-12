@@ -8,6 +8,7 @@ namespace finalproject {
 		std::vector<InventoryItem> inventory;
 		std::string wrapped_type;
 		std::string wrapped_desc;
+		bool can_present = false;
 
 		ofImage bg;
 		ofImage item;
@@ -35,7 +36,7 @@ namespace finalproject {
 		void refreshItem();
 
 	public:
-		Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag);
+		Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag, bool present_ok = false);
 
 		void update();
 		void draw();

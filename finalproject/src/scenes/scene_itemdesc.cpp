@@ -1,10 +1,11 @@
 #include "scene_itemdesc.h"
 
 namespace finalproject {
-	Scene_ItemDesc::Scene_ItemDesc(int index, const std::vector<InventoryItem>& inv) {
+	Scene_ItemDesc::Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag, bool present_ok) {
+		can_present = present_ok;
 		font.load(constants::kFontFile, constants::kFontSize);
-		bg.load("image_desc.png");
-		inventory = inv;
+		bg.load(present_ok ? "image_desc_present.png" : "image_desc.png");
+		inventory = bag;
 		sel_index = index;
 
 		refreshItem();
@@ -36,18 +37,18 @@ namespace finalproject {
 	}
 
 	bool Scene_ItemDesc::pressedCancel(int key) {
-		return key == 'x' || key == OF_KEY_ESC;
+		return key == 'x';
 	}
 
 	bool Scene_ItemDesc::pressedPresent(int key) {
-		return key == 'd';
+		return key == OF_KEY_UP;
 	}
 
 	void Scene_ItemDesc::processKey(int key) {
 		if (pressedCancel(key)) {
 			scenes.pop();
 			return;
-		} else if (pressedPresent(key)) {
+		} else if (can_present && pressedPresent(key)) {
 			scenes.setData(inventory[sel_index].name);
 			scenes.pop();
 			scenes.pop();

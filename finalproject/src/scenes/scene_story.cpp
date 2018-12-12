@@ -126,7 +126,7 @@ namespace finalproject {
 		}
 
 		if (pressedCancel(key)) {
-			scenes.add(ScenePtr(new Scene_Inventory(inventory)));
+			scenes.add(ScenePtr(new Scene_Inventory(inventory, testimony_index >= 0)));
 
 		} else {
 			// fast forward text

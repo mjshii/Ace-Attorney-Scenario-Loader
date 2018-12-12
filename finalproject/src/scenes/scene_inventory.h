@@ -9,7 +9,7 @@ namespace finalproject {
 
 	class Scene_Inventory : public Scene {
 		std::vector<InventoryItem> inventory;
-		bool canPresent = false;
+		bool can_present = false;
 
 		ofImage bg;
 		ofImage item;
@@ -38,8 +38,7 @@ namespace finalproject {
 		bool pressedPresent(int key);
 
 	public:
-		Scene_Inventory(const std::vector<InventoryItem> &i);
-		Scene_Inventory(const std::vector<InventoryItem> &i, bool presentOK);
+		Scene_Inventory(const std::vector<InventoryItem> &i, bool present_ok = false);
 
 		void update();
 		void draw();

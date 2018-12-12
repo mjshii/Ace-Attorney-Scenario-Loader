@@ -2,14 +2,12 @@
 #include <algorithm>
 
 namespace finalproject {
-	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem> &i) {
+
+	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem>& i, bool present_ok) {
 		bg.load("inventory_bg.png");
 		font.load(constants::kFontFile, constants::kFontSize);
 		inventory = i;
-	}
-
-	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem>& i, bool presentOK) {
-		canPresent = presentOK;
+		can_present = present_ok;
 	}
 
 	void Scene_Inventory::update() {}
@@ -61,11 +59,7 @@ namespace finalproject {
 			scenes.pop();
 			return;
 		} else if (pressedOK(key)) {
-			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory)));
-			return;
-		} else if (pressedPresent(key)) {
-			scenes.setData(inventory[sel_index].name);
-			scenes.pop();
+			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory, can_present)));
 			return;
 		}
 
