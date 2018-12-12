@@ -48,6 +48,8 @@ namespace finalproject {
 		void readNextLine(int key);
 		void readStoryLine();
 		void readTestimonyLine(int key);
+		void readStatementLine(int key);
+		void readPressLine(int key);
 		void updateTestimonyIndex(int key);
 
 	public:

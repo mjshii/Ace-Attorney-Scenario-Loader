@@ -168,30 +168,36 @@ namespace finalproject {
 		shouldUpdate = true;
 	}
 
-	void Scene_Story::readTestimonyLine(int key) {
-		if (press_index >= 0 || key == OF_KEY_DOWN) {
-			press_index++;
-			data = file["story"][current_index]["testimony"]["statements"][testimony_index]["press"][press_index];
+	void Scene_Story::readPressLine(int key) {
+		press_index++;
+		data = file["story"][current_index]["testimony"]["statements"][testimony_index]["press"][press_index];
+		if (data.contains("text")) {
+			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+			current_text.clear();
 		} else {
-			updateTestimonyIndex(key);
-			data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+			press_index = -1;
+			readTestimonyLine(kDefaultKey);
 		}
+	}
+
+	void Scene_Story::readStatementLine(int key) {
+		updateTestimonyIndex(key);
+		data = file["story"][current_index]["testimony"]["statements"][testimony_index];
 
 		if (data.contains("text")) {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
-			if (press_index >= 0) {
-				next_text = current_text;
-				current_text.clear();
-			}
 		} else {
-			if (press_index >= 0) {
-				press_index = -1;
-			} else {
-				testimony_index = -1;
-			}
+			testimony_index = -1;
 			readTestimonyLine(kDefaultKey);
 		}
+	}
 
+	void Scene_Story::readTestimonyLine(int key) {
+		if (press_index >= 0 || key == OF_KEY_DOWN) {
+			readPressLine(key);
+		} else {
+			readStatementLine(key);
+		}
 		shouldUpdate = true;
 	}
 
