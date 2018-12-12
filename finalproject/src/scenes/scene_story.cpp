@@ -22,6 +22,8 @@ namespace finalproject {
 
 	void Scene_Story::update() {
 		if (shouldUpdate) {
+			json pflags = press_flags;
+			std::cout << pflags << std::endl;
 			updateImages();
 			updateTextbox();
 			updateSounds();
@@ -95,7 +97,7 @@ namespace finalproject {
 
 	void Scene_Story::drawTextbox() {
 		name_font.drawString(
-			name_text,
+			data.contains("add item") ? "" : name_text,
 			constants::kDialogueX,
 			constants::kNameY + font.getSize()
 		);
@@ -117,7 +119,8 @@ namespace finalproject {
 
 	bool Scene_Story::validKey(int key) {
 		return pressedOK(key) || pressedCancel(key) || 
-			key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_UP || key == OF_KEY_DOWN;
+			(testimony_index >= 0 && press_index < 0 && 
+			(key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
 	}
 
 	void Scene_Story::processKey(int key) {
@@ -146,6 +149,7 @@ namespace finalproject {
 			} else {
 				readTestimonyLine(key);
 			}
+			shouldUpdate = true;
 		} catch (std::exception) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
@@ -164,8 +168,6 @@ namespace finalproject {
 			current_text.clear();
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 		}
-
-		shouldUpdate = true;
 	}
 
 	void Scene_Story::readPressLine(int key) {
@@ -184,6 +186,13 @@ namespace finalproject {
 		updateTestimonyIndex(key);
 		data = file["story"][current_index]["testimony"]["statements"][testimony_index];
 
+		if (data.contains("condition")) {
+			int check_press = data["condition"].get<int>() - 1;
+			if (!(press_flags.size() > check_press && press_flags[check_press])) {
+				readStatementLine(key);
+				return;
+			}
+		}
 		if (data.contains("text")) {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 		} else {
@@ -192,13 +201,20 @@ namespace finalproject {
 		}
 	}
 
+	void Scene_Story::updatePressFlags() {
+		if (press_flags.size() < testimony_index + 1) {
+			press_flags.resize(testimony_index + 1);
+		}
+		press_flags[testimony_index] = true;
+	}
+
 	void Scene_Story::readTestimonyLine(int key) {
 		if (press_index >= 0 || key == OF_KEY_DOWN) {
+			updatePressFlags();
 			readPressLine(key);
 		} else {
 			readStatementLine(key);
 		}
-		shouldUpdate = true;
 	}
 
 	void Scene_Story::updateTestimonyIndex(int key) {

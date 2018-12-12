@@ -13,6 +13,7 @@ namespace finalproject {
 		int current_index = -1;
 		int testimony_index = -1;
 		int press_index = -1;
+		std::vector<bool> press_flags;
 
 		const int kDefaultKey = OF_KEY_RETURN;
 
@@ -51,6 +52,7 @@ namespace finalproject {
 		void readStatementLine(int key);
 		void readPressLine(int key);
 		void updateTestimonyIndex(int key);
+		void updatePressFlags();
 
 	public:
 		Scene_Story(const json &story_file);

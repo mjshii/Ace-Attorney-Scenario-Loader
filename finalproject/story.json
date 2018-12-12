@@ -108,8 +108,10 @@
                 "text": "but you know, you might be right"
               },
               {
+                "text": "Updated Report added to the court record.",
                 "add item": {
                   "name": "updated report",
+                  "type": "Obtained by pressing John Smith.",
                   "desc": "a better report on the body"
                 }
               }
@@ -117,7 +119,7 @@
           },
           {
             "text": "and this shows up after you press 1",
-            "condition": "press 1",
+            "condition": 1,
             "press": [
               {
                 "text": "plz don't present the updated report here or my testimony falls apart"
