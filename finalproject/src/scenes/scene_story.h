@@ -8,14 +8,17 @@ using nlohmann::json;
 namespace finalproject {
 
 	class Scene_Story : public Scene {
+		const int kDefaultKey = OF_KEY_RETURN;
 		json file;
 		json data;
-		int current_index = -1;
+
+		int story_index = -1;
 		int testimony_index = -1;
 		int press_index = -1;
-		std::vector<bool> press_flags;
+		int present_index = -1;
 
-		const int kDefaultKey = OF_KEY_RETURN;
+		std::string last_data;
+		std::vector<bool> press_flags;
 
 		std::string name_text;
 		std::string current_text;
@@ -37,6 +40,11 @@ namespace finalproject {
 		const int kDialogueWidth = 1050;
 
 		void loadResources();
+
+		void updateData();
+		void updateText();
+		void updatePressFlags();
+
 		void updateImages();
 		void updateTextbox();
 		void updateSounds();
@@ -51,8 +59,10 @@ namespace finalproject {
 		void readTestimonyLine(int key);
 		void readStatementLine(int key);
 		void readPressLine(int key);
+		void readPresentLine(int key);
+
 		void updateTestimonyIndex(int key);
-		void updatePressFlags();
+		bool canPresent();
 
 	public:
 		Scene_Story(const json &story_file);

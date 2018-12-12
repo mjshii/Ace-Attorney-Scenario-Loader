@@ -21,19 +21,15 @@ namespace finalproject {
 	}
 
 	void Scene_Story::update() {
+		updateData();
+		updateText();
+
 		if (shouldUpdate) {
-			json pflags = press_flags;
-			std::cout << pflags << std::endl;
 			updateImages();
 			updateTextbox();
 			updateSounds();
+			
 			shouldUpdate = false;
-		}
-
-		// always update text
-		if (!next_text.empty()) {
-			current_text.push_back(next_text.front());
-			next_text = next_text.substr(1, next_text.size() - 1);
 		}
 	}
 
@@ -119,8 +115,7 @@ namespace finalproject {
 
 	bool Scene_Story::validKey(int key) {
 		return pressedOK(key) || pressedCancel(key) || 
-			(testimony_index >= 0 && press_index < 0 && 
-			(key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
+			(canPresent() && (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
 	}
 
 	void Scene_Story::processKey(int key) {
@@ -129,7 +124,7 @@ namespace finalproject {
 		}
 
 		if (pressedCancel(key)) {
-			scenes.add(ScenePtr(new Scene_Inventory(inventory, testimony_index >= 0)));
+			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
 
 		} else {
 			// fast forward text
@@ -157,8 +152,8 @@ namespace finalproject {
 	}
 
 	void Scene_Story::readStoryLine() {
-		current_index++;
-		data = file["story"].at(current_index);
+		story_index++;
+		data = file["story"].at(story_index);
 
 		if (data.contains("testimony")) {
 			readTestimonyLine(kDefaultKey);
@@ -172,7 +167,22 @@ namespace finalproject {
 
 	void Scene_Story::readPressLine(int key) {
 		press_index++;
-		data = file["story"][current_index]["testimony"]["statements"][testimony_index]["press"][press_index];
+		data = file["story"][story_index]["testimony"]["statements"][testimony_index]["press"][press_index];
+
+		if (data.contains("add item")) {
+			InventoryItem item(
+				data["add item"]["name"],
+				data["add item"].contains("type") ? data["add item"]["type"] : "",
+				data["add item"]["desc"]
+			);
+			if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
+				inventory.push_back(item);
+			} else {
+				readPressLine(key);
+				return;
+			}
+		}
+
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
@@ -182,9 +192,13 @@ namespace finalproject {
 		}
 	}
 
+	void Scene_Story::readPresentLine(int key) {
+
+	}
+
 	void Scene_Story::readStatementLine(int key) {
 		updateTestimonyIndex(key);
-		data = file["story"][current_index]["testimony"]["statements"][testimony_index];
+		data = file["story"][story_index]["testimony"]["statements"][testimony_index];
 
 		if (data.contains("condition")) {
 			int check_press = data["condition"].get<int>() - 1;
@@ -208,24 +222,44 @@ namespace finalproject {
 		press_flags[testimony_index] = true;
 	}
 
+	void Scene_Story::updateData() {
+		if (scenes.getData() != last_data) {
+			// update item presenting
+			last_data = scenes.getData();
+			
+			shouldUpdate = true;
+		}
+	}
+
+	void Scene_Story::updateText() {
+		// append the next character
+		if (!next_text.empty()) {
+			current_text.push_back(next_text.front());
+			next_text = next_text.substr(1, next_text.size() - 1);
+		}
+	}
+
 	void Scene_Story::readTestimonyLine(int key) {
 		if (press_index >= 0 || key == OF_KEY_DOWN) {
 			updatePressFlags();
 			readPressLine(key);
+		} else if (present_index >= 0) {
+			readPresentLine(key);
 		} else {
 			readStatementLine(key);
 		}
 	}
 
 	void Scene_Story::updateTestimonyIndex(int key) {
-		if (key == OF_KEY_LEFT) {
-			if (testimony_index <= 0) {
-				return;
-			}
+		if (key == OF_KEY_LEFT && testimony_index > 0) {
 			testimony_index--;
-		} else {
+		} else if (pressedOK(key) || key == OF_KEY_RIGHT) {
 			testimony_index++;
 		}
+	}
+
+	bool Scene_Story::canPresent() {
+		return testimony_index >= 0 && press_index < 0 && present_index < 0;
 	}
 
 }
