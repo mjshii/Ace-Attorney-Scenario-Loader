@@ -84,7 +84,7 @@ namespace finalproject {
 				drawTextbox();
 			}
 		}
-		if (testimony_index >= 0 && press_index < 0) {
+		if (canPresent()) {
 			testimony_arrows.draw(0, 0);
 		}
 	}
@@ -123,9 +123,7 @@ namespace finalproject {
 
 		if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
-
-		}
-		else {
+		} else {
 			// fast forward text
 			if (!next_text.empty()) {
 				current_text += next_text;
@@ -140,8 +138,7 @@ namespace finalproject {
 		try {
 			if (testimony_index < 0) {
 				readStoryLine();
-			}
-			else {
+			} else {
 				readTestimonyLine(key);
 			}
 			shouldUpdate = true;
@@ -221,16 +218,15 @@ namespace finalproject {
 		if (data.contains("present " + last_data)) {
 			data = data["present " + last_data][present_index];
 		} else {
-			data = file["story"][story_index]["default present"][present_index];
+			data = file["story"][story_index]["testimony"]["default present"][present_index];
 		}
-
-		std::cout << data << std::endl;
 
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
 		} else {
 			present_index = -1;
+			last_data = "";
 			readTestimonyLine(kDefaultKey);
 		}
 	}
