@@ -9,8 +9,10 @@ namespace finalproject {
 
 	class Scene_Story : public Scene {
 		const int kDefaultKey = OF_KEY_RETURN;
+		const std::string kEncryptionKey = "Super Weak Key!";
 		json file;
 		json data;
+		std::string save_name;
 
 		int story_index = -1;
 		int testimony_index = -1;
@@ -75,7 +77,7 @@ namespace finalproject {
 		void loadData();
 
 	public:
-		Scene_Story(const json &story_file);
+		Scene_Story(const json &story_file, std::string filename);
 
 		void update();
 		void draw();

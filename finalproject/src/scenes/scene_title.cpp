@@ -64,7 +64,7 @@ namespace finalproject {
 			try {
 				json story;
 				file >> story;
-				scenes.replace(ScenePtr(new Scene_Story(story)));
+				scenes.replace(ScenePtr(new Scene_Story(story, input)));
 			} catch (std::invalid_argument) {
 				input = kBadText;
 			}

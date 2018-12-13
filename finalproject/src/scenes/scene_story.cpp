@@ -2,8 +2,9 @@
 #include "../libs/cryptor.hpp"
 
 namespace finalproject {
-	Scene_Story::Scene_Story(const json &story_file) {
+	Scene_Story::Scene_Story(const json &story_file, std::string filename) {
 		file = story_file;
+		save_name = filename + "_save.txt";
 		for (auto& item : file["inventory"]) {
 			addItem(item);
 		}
@@ -340,22 +341,45 @@ namespace finalproject {
 			data.contains("remove item"));
 	}
 
+	// Stretch goal - save files
+
 	void Scene_Story::saveData() {
 		json save;
-		save["story index"] = story_index;
-		save["testimony index"] = press_index;
-		save["press index"] = press_index;
-		save["present index"] = present_index;
-		save["after index"] = after_index;
-		save["press flags"] = press_flags;
-		save["seen after"] = seen_after;
+		save["story_index"] = story_index;
+		save["testimony_index"] = testimony_index;
+		save["press_index"] = press_index;
+		save["present_index"] = present_index;
+		save["after_index"] = after_index;
+		save["press_flags"] = press_flags;
+		save["seen_after"] = seen_after;
 
 		std::string save_data = save.dump();
-		cryptor::set_key("in order to prevent tampering");
-		cryptor::encrypt(save_data);
+		cryptor::set_key(kEncryptionKey);
+
+		ofstream file(save_name);
+		file << cryptor::encrypt(save_data);
+		file.close();
 	}
 
 	void Scene_Story::loadData() {
+		ifstream file(save_name);
+		std::stringstream buffer;
+		buffer << file.rdbuf();
+		file.close();
+		
+		json load;
+		cryptor::set_key(kEncryptionKey);
+		load.parse(cryptor::decrypt(buffer.str()));
 
+		story_index = load["story index"];
+		press_index = load["press index"];
+
+		story_index = load["story_index"];
+		testimony_index = load["testimony_index"];
+		press_index = load["press_index"];
+		present_index = load["present_index"];
+		after_index = load["after_index"];
+		press_flags = load["press_flags"].get<std::vector<bool>>;
+		seen_after = load["seen_after"];
 	}
 }
