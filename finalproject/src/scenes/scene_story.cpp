@@ -136,7 +136,7 @@ namespace finalproject {
 
 	void Scene_Story::readNextLine(int key) {
 		try {
-			if (testimony_index < 0) {
+			if (testimony_index < 0 && after_index < 0) {
 				readStoryLine();
 			} else {
 				readTestimonyLine(key);
@@ -230,10 +230,35 @@ namespace finalproject {
 			present_index = -1;
 			last_data = "";
 			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
-				testimony_index = -1;
-				press_flags.clear();
+				exitTestimony();
 			}
 			readNextLine(key);
+		}
+	}
+
+	void Scene_Story::exitTestimony() {
+		testimony_index = -1;
+		press_index = -1;
+		present_index = -1;
+		after_index = -1;
+
+		last_data = "";
+		scenes.setData("");
+		seen_after = false;
+		press_flags.clear();
+	}
+
+	void Scene_Story::readAfterLine(int key) {
+		after_index++;
+		data = file["story"][story_index]["testimony"][seen_after ? "afterword" : "short afterword"][after_index];
+
+		if (data.contains("text")) {
+			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
+			current_text.clear();
+		} else {
+			seen_after = true;
+			after_index = -1;
+			readStatementLine(key);
 		}
 	}
 
@@ -252,7 +277,7 @@ namespace finalproject {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 		} else {
 			testimony_index = -1;
-			readTestimonyLine(kDefaultKey);
+			readAfterLine(key);
 		}
 	}
 
@@ -289,6 +314,8 @@ namespace finalproject {
 			readPressLine(key);
 		} else if (present_index >= 0) {
 			readPresentLine(key);
+		} else if (after_index >= 0) {
+			readAfterLine(key);
 		} else {
 			readStatementLine(key);
 		}

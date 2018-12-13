@@ -16,9 +16,11 @@ namespace finalproject {
 		int testimony_index = -1;
 		int press_index = -1;
 		int present_index = -1;
+		int after_index = -1;
 
 		std::string last_data;
 		std::vector<bool> press_flags;
+		bool seen_after = false;
 
 		std::string name_text;
 		std::string current_text;
@@ -60,12 +62,15 @@ namespace finalproject {
 		void readStatementLine(int key);
 		void readPressLine(int key);
 		void readPresentLine(int key);
+		void readAfterLine(int key);
 
 		void updateTestimonyIndex(int key);
 		bool canPresent();
 		bool shouldShowName();
 		bool addItem(json item);
 		bool removeItem(json list);
+
+		void exitTestimony();
 
 	public:
 		Scene_Story(const json &story_file);
