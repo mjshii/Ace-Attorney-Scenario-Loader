@@ -63,7 +63,7 @@ namespace finalproject {
 		} else if (pressedOK(key)) {
 			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory, can_present)));
 			return;
-		} else if (pressedPresent(key)) {
+		} else if (can_present && pressedPresent(key)) {
 			scenes.setData(inventory[sel_index].name);
 			scenes.pop();
 			return;
