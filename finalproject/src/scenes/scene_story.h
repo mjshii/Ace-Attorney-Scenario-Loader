@@ -12,7 +12,7 @@ namespace finalproject {
 		const std::string kEncryptionKey = "super duper weak key";
 		json file;
 		json data;
-		json image_files;
+		json resources;
 		std::string save_name;
 
 		int story_index = -1;

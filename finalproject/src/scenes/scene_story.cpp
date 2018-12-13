@@ -34,13 +34,13 @@ namespace finalproject {
 	void Scene_Story::updateImages() {
 		if (data.contains("bg")) {
 			bg.load(data["bg"].get<std::string>());
-			image_files["bg"] = data["bg"];
+			resources["bg"] = data["bg"];
 		}
 
 		if (data.contains("image")) {
 			if (data["image"].size() > 0) {
 				sprite.load(data["image"].get<std::string>());
-				image_files["image"] = data["image"];
+				resources["image"] = data["image"];
 			} else {
 				sprite.clear();
 			}
@@ -49,7 +49,7 @@ namespace finalproject {
 		if (data.contains("overlay")) {
 			if (data["overlay"].size() > 0) {
 				overlay.load(data["overlay"].get<std::string>());
-				image_files["overlay"] = data["overlay"];
+				resources["overlay"] = data["overlay"];
 			}
 			else {
 				overlay.clear();
@@ -81,6 +81,7 @@ namespace finalproject {
 			bgm_channel.load(data["bgm"].get<std::string>());
 			bgm_channel.setLoop(true);
 			bgm_channel.play();
+			resources["bgm"] = data["bgm"];
 		}
 		if (data.contains("sfx")) {
 			sfx_channel.load(data["sfx"].get<std::string>());
@@ -203,7 +204,7 @@ namespace finalproject {
 	bool Scene_Story::addItem(json item) {
 		InventoryItem new_item(
 			item["name"],
-			item.contains("image") ? item["image"] : item["name"],
+			item.contains("image") ? item["image"] : (item["name"].get<std::string>() + ".png"),
 			item.contains("type") ? item["type"] : "",
 			item["desc"]
 		);
@@ -216,7 +217,7 @@ namespace finalproject {
 
 	bool Scene_Story::removeItem(json list) {
 		bool success = false;
-		for (auto &i : list) {
+		for (auto& i : list) {
 			InventoryItem item(i.get<std::string>(), "", "");
 			if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
 				continue;
@@ -377,6 +378,7 @@ namespace finalproject {
 		// save text
 		save["current_text"] = current_text;
 		save["next_text"] = next_text;
+		save["name_text"] = name_text;
 
 		// save indexes
 		save["story_index"] = story_index;
@@ -390,10 +392,26 @@ namespace finalproject {
 		save["seen_after"] = seen_after;
 
 		// save currently displayed images
-		save["bg"] = image_files.contains("bg") ? image_files["bg"].get<std::string>() : "";
-		save["image"] = image_files.contains("image") ? image_files["image"].get<std::string>() : "";
-		save["overlay"] = image_files.contains("overlay") ? image_files["overlay"].get<std::string>() : "";
+		save["bg"] = resources.contains("bg") ? resources["bg"].get<std::string>() : "";
+		save["image"] = resources.contains("image") ? resources["image"].get<std::string>() : "";
+		save["overlay"] = resources.contains("overlay") ? resources["overlay"].get<std::string>() : "";
 
+		// save current bgm
+		save["bgm"] = resources.contains("bgm") ? resources["bgm"].get<std::string>() : "";
+
+		// save inventory
+		json json_bag;
+		for (auto& i : inventory) {
+			json_bag.push_back({
+				{"name", i.name},
+				{"image", i.image},
+				{"type", i.type},
+				{"desc", i.desc}
+			});
+		}
+		save["inventory"] = json_bag;
+
+		// dump data
 		std::string save_data = save.dump();
 		std::cout << save_data << std::endl;
 		cryptor::set_key(kEncryptionKey);
@@ -417,6 +435,7 @@ namespace finalproject {
 		// load text
 		current_text = load["current_text"].get<std::string>();
 		next_text = load["next_text"].get<std::string>();
+		name_text = load["name_text"].get<std::string>();
 
 		// load indexes
 		story_index = load["story_index"];
@@ -427,19 +446,29 @@ namespace finalproject {
 
 		// load flags
 		press_flags.clear();
-		for (auto &i : load["press_flags"]) {
+		for (auto& i : load["press_flags"]) {
 			press_flags.push_back(i.get<bool>());
 		}
 		seen_after = load["seen_after"];
 
-		//load images
-		image_files["bg"] = load["bg"];
-		image_files["image"] = load["image"];
-		image_files["overlay"] = load["overlay"];
+		// load images
+		resources["bg"] = load["bg"];
+		resources["image"] = load["image"];
+		resources["overlay"] = load["overlay"];
+		bg.load(resources["bg"].get<std::string>());
+		sprite.load(resources["image"].get<std::string>());
+		overlay.load(resources["overlay"].get<std::string>());
 
-		bg.load(image_files["bg"].get<std::string>());
-		sprite.load(image_files["image"].get<std::string>());
-		overlay.load(image_files["overlay"].get<std::string>());
+		// load music
+		resources["overlay"] = load["bgm"];
+		bgm_channel.load(resources["bgm"].get<std::string>());
+		bgm_channel.setLoop(true);
+		bgm_channel.play();
 
+		// load inventory
+		inventory.clear();
+		for (auto& item : load["inventory"]) {
+			addItem(item);
+		}
 	}
 }
