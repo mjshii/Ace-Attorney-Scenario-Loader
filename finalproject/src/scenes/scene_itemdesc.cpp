@@ -23,7 +23,7 @@ namespace finalproject {
 		bg.draw(0, 0);
 		item.draw(kImageX, kImageY);
 		font.drawString(
-			inventory[sel_index].image,
+			inventory[sel_index].name,
 			kNameX + (kNameWidth - font.stringWidth(inventory[sel_index].name)) / 2,
 			kNameY + (font.getLineHeight() + font.getDescenderHeight() / 2)
 		);

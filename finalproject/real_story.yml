@@ -1,0 +1,208 @@
+---
+inventory:
+- name: Lawyer's Badge
+  image: badge.png
+  type: 'Type: Other'
+  desc: I put this in my pocket, next to my keys. I hope they don't scratch it.
+- name: Grading Rubric
+  image: affidavit.png
+  type: 'Type: Documents <br> Received four weeks ago before I began this whole thing.'
+  desc: The grading rubric for the project. Project Scope 40%, Code Quality 40%, Documentation 10%, Presentation 10%
+- name: Decoupled Functions
+  image: functions.png
+  type: 'Type: Documents <br> Written hastily a day ago.'
+  desc: Functions that have been decomposed and split apart, for better modularity.
+- name: Commit History
+  image: commits.png
+  type: 'Type: Documents <br> Obtained from GitHub.'
+  desc: Shows 22 commits starting from 4 to 11:59 PM on 12/12/2018.
+story:
+- bg: courtroom.png
+  bgm: bgm.mp3
+  text: '10:00 AM, 12/13/2018 <br> Courtroom No. 3'
+- name: Student
+  image: student_cry.png
+  text: Aaaaaahhhhh! I need your help!
+- image: mjshi.png
+  name: Lawyer
+  text: Calm down, what is it?
+- image: student.png
+  name: Student
+  text: The professor... he... he...
+- text: HE WANTS TO GIVE ME A C ON MY FINAL PROJECT!!!
+  image: student_cry.png
+- image: mjshi_ahh.png
+  name: Lawyer
+  text: Ahh, so that was it.
+- image: mjshi.png
+  text: I can try to talk to him for you. No guarantees though.
+- image: student.png
+  name: Student
+  text: Seriously?? Thank you so much!
+- bg: stand_bg.png
+  image: evans.png
+  name: Professor
+  text: Huh? What are you doing here?
+- bg: stand_back.png
+  name: Lawyer
+  image: mjshi.png
+  text: A student wants to know why they got the grade they did. Could you elaborate a bit on your reasoning?
+- bg: stand_bg.png
+  name: Professor
+  image: evans.png
+  text: Sure, I don't mind.
+- text: Now, where to start...
+
+- testimony:
+    default present:
+    - shout: present.png
+      sfx: objection.mp3
+    - bg: stand_back.png
+      name: Lawyer
+      image: mjshi_object.png
+      text: A-ha! I got you now!
+    - text: So? What do you think about this?
+      image: mjshi_talk.png
+    - name: Professor
+      bg: stand_bg.png
+      image: evans.png
+      text: Sorry... I don't really see how that's relevant.
+    - bg: stand_back.png
+      name: Lawyer
+      image: mjshi_shock.png
+      text: Oof... that's not good.
+
+    afterword:
+    - bg: stand_back.png
+      name: Lawyer
+      image: mjshi.png
+      text: (I gotta convince the prof. that this student deserves something a little higher.)
+    - text: (Now, what can I use to do that? ... Better check my court record.)
+
+    short afterword:
+    - bg: stand_back.png
+      name: Lawyer
+      image: mjshi.png
+      text: (I'm sure it can't be too hard. Just one more push...)
+
+    statements:
+    - bg: stand_bg.png
+      name: Professor
+      image: evans.png
+      text: Overall, I just felt like the quality of their project wasn't that great.
+
+      press:
+      - shout: press.png
+        sfx: holdit.mp3
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi.png
+        text: What do you mean by 'not that great'? Could you elaborate?
+      - bg: stand_bg.png
+        name: Professor
+        image: evans.png
+        text: Sure! I just thought that their project could have had a lot more depth to it.
+      - text: There were some areas that they could have expanded more on but they chose not to.
+      - text: Whether that was due to time restraints or something else, I just can't give an A to someone who didn't put their full effort into this.
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi_shock.png
+        text: (That's... a fair point.)
+      - text: (I guess I gotta find another angle to attack this from...)
+        image: mjshi.png
+      
+    - bg: stand_bg.png
+      name: Professor
+      image: evans_concerned.png
+      text: They missed several of the rubric items that I clearly outlined, too.
+
+      press:
+      - shout: press.png
+        sfx: holdit.mp3
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi_talk.png
+        text: What do you mean by they missed several of the rubric items?
+      - text: Could you list them specifically for me, please?
+      - bg: stand_bg.png
+        name: Professor
+        image: evans.png
+        text: Sure, I don't see why not.
+
+    - bg: stand_bg.png
+      name: Professor
+      image: evans_concerned.png
+      text: In their repo, they didn't even have a DEVELOPMENT.md! And they did most of their commits in the 4 hours or so before the project was due.
+      condition: 2
+
+      press:
+      - shout: press.png
+        sfx: holdit.mp3
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi.png
+        text: Ehh... procrastination like that is kinda normal, though?
+      - bg: stand_bg.png
+        name: Professor
+        image: evans.png
+        text: That doesn't make it OK to do. Especially when the rubric says you need to consistently commit over a long period of time. I gave you guys a month to do this...
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi_ahh.png
+        text: (Ahhh... that is a valid point.)
+      - text: (I feel like there's something here that I can fight him on, though.)
+      - text: Maybe I should look through my court record...
+
+      present Commit History:
+      - shout: present.png
+        sfx: objection.mp3
+        image: mjshi_object.png
+        bg: stand_back.png
+      - name: Lawyer
+        text: That's not right!
+      - text: If you look closely at their commit history, they actually DO commit a DEVELOPMENT.md at 11:59 PM!
+        image: mjshi_talk.png
+      - text: Sure, that's practically AT the deadline, but...
+        image: mjshi_ahh.png
+      - text: You can't just take off the 10% documentation grade just because it was submitted at the very latest time it could've been!
+        image: mjshi_object.png
+      - bg: stand_bg.png
+        name: Professor
+        image: evans_shock.png
+        text: '!!!'
+      - bg: stand_bg.png
+        name: Professor
+        image: evans_shock.png
+        text: You... you're right!
+      - text: It was submitted so late that I must've missed it!
+      - text: I'm sorry, Student. Looks like I owe you a 10%.
+        image: evans_concerned.png
+
+      press:
+      - shout: press.png
+        sfx: holdit.mp3
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi_talk.png
+        text: What do you mean by they missed several of the rubric items?
+      - text: Could you list them specifically for me, please?
+      - bg: stand_bg.png
+        name: Professor
+        image: evans.png
+        text: Sure, I don't see why not.
+
+    - bg: stand_bg.png
+      name: Professor
+      image: evans.png
+      text: When I put it this way, it doesn't sound like much, does it? <br> But I assure you, the little things added up enough that that was the grade they deserved.
+      
+      press:
+      - shout: press.png
+        sfx: holdit.mp3
+      - bg: stand_back.png
+        name: Lawyer
+        image: mjshi_ahh.png
+        text: (No use. There's nothing I can press him on here.)
+
+- text: You broke out of the loop! Congrats
+- text: That's the end of it now.
