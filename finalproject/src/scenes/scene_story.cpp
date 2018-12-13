@@ -1,4 +1,5 @@
 #include "scene_story.h"
+#include "../libs/cryptor.hpp"
 
 namespace finalproject {
 	Scene_Story::Scene_Story(const json &story_file) {
@@ -193,7 +194,6 @@ namespace finalproject {
 			inventory.erase(std::remove(inventory.begin(), inventory.end(), item), inventory.end());
 			success = true;
 		}
-		std::cout << success << std::endl;
 		return success;
 	}
 
@@ -231,8 +231,11 @@ namespace finalproject {
 			last_data = "";
 			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
 				exitTestimony();
+				readNextLine(key);
+			} else {
+				testimony_index--;
+				readTestimonyLine(key);
 			}
-			readNextLine(key);
 		}
 	}
 
@@ -250,7 +253,7 @@ namespace finalproject {
 
 	void Scene_Story::readAfterLine(int key) {
 		after_index++;
-		data = file["story"][story_index]["testimony"][seen_after ? "afterword" : "short afterword"][after_index];
+		data = file["story"][story_index]["testimony"][seen_after ? "short afterword" : "afterword"][after_index];
 
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
@@ -290,7 +293,6 @@ namespace finalproject {
 
 	void Scene_Story::updateData() {
 		if (!scenes.getData().empty() && last_data != scenes.getData()) {
-			std::cout << "updating data" << std::endl;
 			// update item presenting
 			last_data = scenes.getData();
 			scenes.setData("");
@@ -338,4 +340,22 @@ namespace finalproject {
 			data.contains("remove item"));
 	}
 
+	void Scene_Story::saveData() {
+		json save;
+		save["story index"] = story_index;
+		save["testimony index"] = press_index;
+		save["press index"] = press_index;
+		save["present index"] = present_index;
+		save["after index"] = after_index;
+		save["press flags"] = press_flags;
+		save["seen after"] = seen_after;
+
+		std::string save_data = save.dump();
+		cryptor::set_key("in order to prevent tampering");
+		cryptor::encrypt(save_data);
+	}
+
+	void Scene_Story::loadData() {
+
+	}
 }

@@ -71,6 +71,8 @@ namespace finalproject {
 		bool removeItem(json list);
 
 		void exitTestimony();
+		void saveData();
+		void loadData();
 
 	public:
 		Scene_Story(const json &story_file);
