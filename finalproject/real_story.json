@@ -4,7 +4,7 @@
 			"name": "Lawyer's Badge",
 			"image": "badge.png",
 			"type": "Type: Other",
-			"desc": "I put this in my pocket, next to my keys. I hope they don't scratch it."
+			"desc": "What I would've gotten if I hadn't been in CS... <br> I put this in my pocket, next to my keys. I hope they don't scratch it."
 		},
 		{
 			"name": "Grading Rubric",
@@ -334,6 +334,11 @@
 			"image": "mjshi_smile.png",
 			"name": "Lawyer",
 			"text": "No problem, man. Anytime."
+		},
+		{
+			"text": "~ The End ~ <br> Hope you liked the game!",
+			"image": "",
+			"name": ""
 		}
 	]
 }
