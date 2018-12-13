@@ -34,13 +34,14 @@ namespace finalproject {
 	void Scene_Story::updateImages() {
 		if (data.contains("bg")) {
 			bg.load(data["bg"].get<std::string>());
+			image_files["bg"] = data["bg"];
 		}
 
 		if (data.contains("image")) {
 			if (data["image"].size() > 0) {
 				sprite.load(data["image"].get<std::string>());
-			}
-			else {
+				image_files["image"] = data["image"];
+			} else {
 				sprite.clear();
 			}
 		}
@@ -48,6 +49,7 @@ namespace finalproject {
 		if (data.contains("overlay")) {
 			if (data["overlay"].size() > 0) {
 				overlay.load(data["overlay"].get<std::string>());
+				image_files["overlay"] = data["overlay"];
 			}
 			else {
 				overlay.clear();
@@ -81,9 +83,8 @@ namespace finalproject {
 			bgm_channel.play();
 		}
 		if (data.contains("sfx")) {
-			sfx_channel.load(data["bgm"].get<std::string>());
-			bgm_channel.setLoop(true);
-			bgm_channel.play();
+			sfx_channel.load(data["sfx"].get<std::string>());
+			sfx_channel.play();
 		}
 	}
 
@@ -96,7 +97,7 @@ namespace finalproject {
 		if (scenes.size() == 1) {
 			text_bg.draw(0, 0);
 
-			if (data.contains("text") && !data.contains("shout")) {
+			if (data.contains("text")) {
 				drawTextbox();
 			}
 		}
@@ -128,10 +129,14 @@ namespace finalproject {
 	}
 
 	void Scene_Story::processSaveLoad(int key) {
-		if (key == 's') {
-			saveData();
-		} else if (key == 'l') {
-			loadData();
+		if (data.contains("shout")) {
+			return;
+		}
+		switch (key) {
+			case 's': saveData();
+				break;
+			case 'l': loadData();
+				break;
 		}
 	}
 
@@ -233,7 +238,7 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else {
+		} else if (!data.contains("shout")) {
 			press_index = -1;
 			readTestimonyLine(key);
 		}
@@ -251,7 +256,7 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else {
+		} else if (!data.contains("shout")) {
 			present_index = -1;
 			last_data = "";
 			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
@@ -283,7 +288,7 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else {
+		} else if (!data.contains("shout")) {
 			seen_after = true;
 			after_index = -1;
 			readStatementLine(key);
@@ -303,7 +308,7 @@ namespace finalproject {
 		}
 		if (data.contains("text")) {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
-		} else {
+		} else if (!data.contains("shout")) {
 			testimony_index = -1;
 			readAfterLine(key);
 		}
@@ -368,15 +373,26 @@ namespace finalproject {
 	// Stretch goal - save files
 	void Scene_Story::saveData() {
 		json save;
+
+		// save text
 		save["current_text"] = current_text;
 		save["next_text"] = next_text;
+
+		// save indexes
 		save["story_index"] = story_index;
 		save["testimony_index"] = testimony_index;
 		save["press_index"] = press_index;
 		save["present_index"] = present_index;
 		save["after_index"] = after_index;
+
+		// save flags
 		save["press_flags"] = press_flags;
 		save["seen_after"] = seen_after;
+
+		// save currently displayed images
+		save["bg"] = image_files.contains("bg") ? image_files["bg"].get<std::string>() : "";
+		save["image"] = image_files.contains("image") ? image_files["image"].get<std::string>() : "";
+		save["overlay"] = image_files.contains("overlay") ? image_files["overlay"].get<std::string>() : "";
 
 		std::string save_data = save.dump();
 		std::cout << save_data << std::endl;
@@ -389,27 +405,41 @@ namespace finalproject {
 
 	void Scene_Story::loadData() {
 		std::string loaded_data;
-
 		ifstream file(save_name);
 		std::getline(file, loaded_data);
 		file.close();
 
+		// decrypt
 		cryptor::set_key(kEncryptionKey);
 		loaded_data = cryptor::decrypt(loaded_data);
 		json load = json::parse(loaded_data);
 
+		// load text
 		current_text = load["current_text"].get<std::string>();
 		next_text = load["next_text"].get<std::string>();
+
+		// load indexes
 		story_index = load["story_index"];
 		testimony_index = load["testimony_index"];
 		press_index = load["press_index"];
 		present_index = load["present_index"];
 		after_index = load["after_index"];
 
+		// load flags
 		press_flags.clear();
 		for (auto &i : load["press_flags"]) {
 			press_flags.push_back(i.get<bool>());
 		}
 		seen_after = load["seen_after"];
+
+		//load images
+		image_files["bg"] = load["bg"];
+		image_files["image"] = load["image"];
+		image_files["overlay"] = load["overlay"];
+
+		bg.load(image_files["bg"].get<std::string>());
+		sprite.load(image_files["image"].get<std::string>());
+		overlay.load(image_files["overlay"].get<std::string>());
+
 	}
 }

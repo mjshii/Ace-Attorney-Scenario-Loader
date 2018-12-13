@@ -98,7 +98,8 @@
             "text": "So there's this thing",
             "press": [
               {
-                "shout": "press.png"
+                "shout": "press.png",
+                "sfx": "holdit.mp3"
               },
               {
                 "text": "To elaborate..."

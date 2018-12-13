@@ -12,6 +12,7 @@ namespace finalproject {
 		const std::string kEncryptionKey = "super duper weak key";
 		json file;
 		json data;
+		json image_files;
 		std::string save_name;
 
 		int story_index = -1;
@@ -40,6 +41,7 @@ namespace finalproject {
 		ofImage testimony_arrows;
 
 		ofSoundPlayer bgm_channel;
+		ofSoundPlayer sfx_channel;
 		ofTrueTypeFont name_font;
 
 		const int kDialogueWidth = 1050;
