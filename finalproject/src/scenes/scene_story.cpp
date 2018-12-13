@@ -91,7 +91,7 @@ namespace finalproject {
 
 	void Scene_Story::drawTextbox() {
 		name_font.drawString(
-			data.contains("add item") ? "" : name_text,
+			shouldShowName() ? name_text : "",
 			constants::kDialogueX,
 			constants::kNameY + font.getSize()
 		);
@@ -161,7 +161,7 @@ namespace finalproject {
 			addItem(data["add item"]);
 		}
 		if (data.contains("remove item")) {
-			removeItem(data["remove item"].get<std::string>());
+			removeItem(data["remove item"]);
 		}
 		if (data.contains("text")) {
 			current_text.clear();
@@ -183,21 +183,25 @@ namespace finalproject {
 		return false;
 	}
 
-	bool Scene_Story::removeItem(std::string name) {
-		InventoryItem item(name, "", "");
-		if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
-			return false;
+	bool Scene_Story::removeItem(json list) {
+		bool success = false;
+		for (auto &i : list) {
+			InventoryItem item(i.get<std::string>(), "", "");
+			if (std::find(inventory.begin(), inventory.end(), item) == inventory.end()) {
+				continue;
+			}
+			inventory.erase(std::remove(inventory.begin(), inventory.end(), item), inventory.end());
+			success = true;
 		}
-		inventory.erase(std::remove(inventory.begin(), inventory.end(), item), inventory.end());
-		return true;
+		std::cout << success << std::endl;
+		return success;
 	}
 
 	void Scene_Story::readPressLine(int key) {
 		press_index++;
 		data = file["story"][story_index]["testimony"]["statements"][testimony_index]["press"][press_index];
 
-		if ((data.contains("add item") && !addItem(data["add item"])) ||
-			(data.contains("remove item") && !removeItem(data["remove item"].get<std::string>()))) {
+		if (data.contains("add item") && !addItem(data["add item"])) {
 			readPressLine(key);
 			return;
 		}
@@ -300,6 +304,11 @@ namespace finalproject {
 
 	bool Scene_Story::canPresent() {
 		return testimony_index >= 0 && press_index < 0 && present_index < 0;
+	}
+
+	bool Scene_Story::shouldShowName() {
+		return !(data.contains("add item") || 
+			data.contains("remove item"));
 	}
 
 }

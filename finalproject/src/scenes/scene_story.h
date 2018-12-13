@@ -63,8 +63,9 @@ namespace finalproject {
 
 		void updateTestimonyIndex(int key);
 		bool canPresent();
+		bool shouldShowName();
 		bool addItem(json item);
-		bool removeItem(std::string name);
+		bool removeItem(json list);
 
 	public:
 		Scene_Story(const json &story_file);

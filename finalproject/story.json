@@ -61,6 +61,14 @@
       "text": "Here is a very long bit of text that will hopefully be wrapped so as to test the word-wrapping function. I don't usually say this much but for demo purposes I suppose I must."
     },
     {
+      "text": "test 0 removed from the court record.",
+      "remove item": ["test 0"]
+    },
+    {
+      "text": "Multiple items removed from the court record.",
+      "remove item": ["test 1", "test 2", "test 3", "test 4", "test 5", "test 6"]
+    },
+    {
       "bg": "stand_bg.png",
       "text": "Now I'm on the witness stand",
       "overlay": "stand.png"
