@@ -9,6 +9,7 @@ namespace finalproject {
 		const int kInputY = 513;
 		const int kInputWidth = 739;
 		const int kInputHeight = 63;
+		const std::string kBadText = "Bad file!";
 
 		std::string input;
 		ofImage bg;

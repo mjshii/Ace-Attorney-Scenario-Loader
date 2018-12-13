@@ -33,7 +33,7 @@ namespace finalproject {
 			return;
 		}
 
-		if (input == "Bad file!") {
+		if (input == kBadText) {
 			input.clear();
 			return;
 		}
@@ -61,11 +61,15 @@ namespace finalproject {
 	void Scene_Title::submitScenario() {
 		std::ifstream file(input);
 		if (file.good()) {
-			json story;
-			file >> story;
-			scenes.replace(ScenePtr(new Scene_Story(story)));
+			try {
+				json story;
+				file >> story;
+				scenes.replace(ScenePtr(new Scene_Story(story)));
+			} catch (std::invalid_argument) {
+				input = kBadText;
+			}
 		} else {
-			input = "Bad file!";
+			input = kBadText;
 		}
 		file.close();
 	}
