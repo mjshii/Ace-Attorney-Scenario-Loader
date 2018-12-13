@@ -3,6 +3,9 @@
 namespace finalproject {
 namespace constants {
 
+	// These are global constants, more localized constants
+	// can be found in the .h files.
+
 	const bool kDebugMode = true;
 
 	const std::string kFontFile = "SourceSansPro-Regular.ttf";
@@ -11,13 +14,6 @@ namespace constants {
 
 	const int kWindowWidth = 1080;
 	const int kWindowHeight = 720;
-
-	const int kDialogueX = 15;
-	const int kNameY = 460;
-	const int kDialogueY = 520;
-
-	const std::string kTitleBG = "title.png";
-	const std::string kControlsBG = "controls.png";
-
+	
 } // namespace constants
 } // namespace finalproject

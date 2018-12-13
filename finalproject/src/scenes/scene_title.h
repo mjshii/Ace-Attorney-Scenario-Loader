@@ -5,6 +5,7 @@
 namespace finalproject {
 
 	class Scene_Title : public Scene {
+		const std::string kTitleBG = "title.png";
 		const int kInputX = 166;
 		const int kInputY = 513;
 		const int kInputWidth = 739;

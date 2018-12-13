@@ -6,7 +6,7 @@
 namespace finalproject {
 
 	Scene_Controls::Scene_Controls() {
-		bg.load(constants::kControlsBG);
+		bg.load(kControlsBG);
 	}
 
 	void Scene_Controls::update() {}

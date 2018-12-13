@@ -13,6 +13,9 @@ namespace finalproject {
 		const std::string kSaveSuffix = "_save.txt";
 		const std::string kArrowsImage = "testimony_arrows.png";
 		const int kFontDecrement = 5;
+		const int kDialogueX = 15;
+		const int kNameY = 460;
+		const int kDialogueY = 520;
 
 		json file;
 		json data;

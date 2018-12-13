@@ -59,14 +59,14 @@ namespace finalproject {
 	void Scene_Story::drawTextbox() {
 		name_font.drawString(
 			shouldShowName() ? name_text : "",
-			constants::kDialogueX,
-			constants::kNameY + font.getSize()
+			kDialogueX,
+			kNameY + font.getSize()
 		);
 
 		font.drawString(
 			current_text,
-			constants::kDialogueX,
-			constants::kDialogueY + font.getSize()
+			kDialogueX,
+			kDialogueY + font.getSize()
 		);
 	}
 
