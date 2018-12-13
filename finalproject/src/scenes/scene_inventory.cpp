@@ -4,7 +4,7 @@
 namespace finalproject {
 
 	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem>& i, bool present_ok) {
-		bg.load("inventory_bg.png");
+		bg.load(present_ok ? "inventory_bg_present.png" : "inventory_bg.png");
 		font.load(constants::kFontFile, constants::kFontSize);
 		inventory = i;
 		can_present = present_ok;
@@ -60,6 +60,10 @@ namespace finalproject {
 			return;
 		} else if (pressedOK(key)) {
 			scenes.add(ScenePtr(new Scene_ItemDesc(sel_index, inventory, can_present)));
+			return;
+		} else if (pressedPresent(key)) {
+			scenes.setData(inventory[sel_index].name);
+			scenes.pop();
 			return;
 		}
 

@@ -413,9 +413,7 @@ namespace finalproject {
 
 		// dump data
 		std::string save_data = save.dump();
-		std::cout << save_data << std::endl;
 		cryptor::set_key(kEncryptionKey);
-
 		ofstream file(save_name, std::ios::trunc);
 		file << cryptor::encrypt(save_data);
 		file.close();

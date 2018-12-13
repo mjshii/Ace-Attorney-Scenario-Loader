@@ -55,7 +55,7 @@
     {
       "name": "John Smith",
       "image": "johnsmith.png",
-      "text": "Before the testimony, I say this"
+      "text": "This demo showcases most, if not all, of the functions this engine possesses."
     },
     {
       "text": "Here is a very long bit of text that will hopefully be wrapped so as to test the word-wrapping function. I don't usually say this much but for demo purposes I suppose I must."
@@ -77,10 +77,13 @@
       "testimony": {
         "default present": [
           {
-            "text": "That is completely irrelevant"
+            "text": "That is completely irrelevant and a waste of time"
           }
         ],
         "afterword": [
+          {
+            "text": "This is the long version of the testimony afterword."
+          },
           {
             "text": "Hmm maybe you should try pressing some things <br> I think that's the down arrow?"
           },
@@ -90,7 +93,7 @@
         ],
         "short afterword": [
           {
-            "text": "It never hurts to press around."
+            "text": "This is the short version of the testimony afterword. <br> It never hurts to press around."
           }
         ],
         "statements": [
@@ -108,31 +111,10 @@
                 "text": "Something something"
               },
               {
-                "text": "Something again"
+                "text": "Something again."
               }
-            ]
-          },
-          {
-            "text": "and another thing",
-            "press": [
               {
-                "text": "Not much to say here"
-              }
-            ]
-          },
-          {
-            "text": "but this thing might be wrong",
-            "press": [
-              {
-                "text": "but you know, you might be right"
-              },
-              {
-                "text": "Updated Report added to the court record.",
-                "add item": {
-                  "name": "updated report",
-                  "type": "Obtained by pressing John Smith.",
-                  "desc": "a better report on the body"
-                }
+                "text": "Maybe that'll be added to the testimony."
               }
             ]
           },
@@ -141,10 +123,14 @@
             "condition": 1,
             "press": [
               {
-                "text": "plz don't present the updated report here or my testimony falls apart"
+                "text": "oh no please don't present the updated report here or my testimony falls apart"
               }
             ],
             "present updated report": [
+              {
+                "shout": "present.png",
+                "sfx": "objection.mp3"
+              },
               {
                 "text": "holy macaroni"
               },
@@ -158,6 +144,41 @@
                 "cmd": "exit"
               }
             ]
+          },
+          {
+            "text": "and another thing",
+            "press": [
+              {
+                "shout": "press.png",
+                "sfx": "holdit.mp3"
+              },
+              {
+                "text": "Not much to say here"
+              }
+            ]
+          },
+          {
+            "text": "but this thing might be wrong",
+            "press": [
+              {
+                "shout": "press.png",
+                "sfx": "holdit.mp3"
+              },
+              {
+                "text": "hmm yes, yes..."
+              },
+              {
+                "text": "Why, I WAS hiding a piece of evidence from you! Glad you noticed!"
+              },
+              {
+                "text": "Updated Report added to the court record.",
+                "add item": {
+                  "name": "updated report",
+                  "type": "Obtained by pressing John Smith.",
+                  "desc": "a better report on the body"
+                }
+              }
+            ]
           }
         ]
       }
@@ -166,6 +187,9 @@
       "bg": "courtroom.png",
       "overlay": "",
       "text": "Bailed out of the update loop just now"
+    },
+    {
+      "text": "Thanks for looking through this demo, the real game lies ahead!"
     }
   ]
 }
