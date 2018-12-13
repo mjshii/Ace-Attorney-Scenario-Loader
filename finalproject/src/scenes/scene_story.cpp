@@ -91,12 +91,11 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::validKey(int key) {
-		return pressedOK(key) || pressedCancel(key) ||
+		return pressedOK(key) || (canSave() && pressedCancel(key)) ||
 			(canPresent() && (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
 	}
 
 	void Scene_Story::processKey(int key) {
-		shout.clear();
 		processSaveLoad(key);
 
 		if (!validKey(key)) {
@@ -104,6 +103,8 @@ namespace finalproject {
 		} else if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
 		} else {
+			shout.clear();
+
 			// fast forward text
 			if (!next_text.empty()) {
 				current_text += next_text;
@@ -186,9 +187,9 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else if (!data.contains("shout")) {
+		} else if (canSave()) {
 			press_index = -1;
-			readTestimonyLine(key);
+			readNextLine(key);
 		}
 	}
 
@@ -204,7 +205,7 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else if (!data.contains("shout")) {
+		} else if (canSave()) {
 			present_index = -1;
 			last_data = "";
 			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
@@ -236,7 +237,7 @@ namespace finalproject {
 		if (data.contains("text")) {
 			next_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
 			current_text.clear();
-		} else if (!data.contains("shout")) {
+		} else if (canSave()) {
 			seen_after = true;
 			after_index = -1;
 			readStatementLine(key);
@@ -256,7 +257,7 @@ namespace finalproject {
 		}
 		if (data.contains("text")) {
 			current_text = wordWrap(data["text"].get<std::string>(), kDialogueWidth);
-		} else if (!data.contains("shout")) {
+		} else if (canSave()) {
 			testimony_index = -1;
 			readAfterLine(key);
 		}
@@ -310,7 +311,11 @@ namespace finalproject {
 	}
 
 	bool Scene_Story::canPresent() {
-		return testimony_index >= 0 && press_index < 0 && present_index < 0;
+		return canSave() && testimony_index >= 0 && press_index < 0 && present_index < 0;
+	}
+
+	bool Scene_Story::canSave() {
+		return !data.contains("shout");
 	}
 
 	bool Scene_Story::shouldShowName() {
@@ -448,11 +453,7 @@ namespace finalproject {
 
 	void Scene_Story::updateShout() {
 		if (data.contains("shout")) {
-			if (data["shout"].size() > 0) {
-				shout.load(data["shout"].get<std::string>());
-			} else {
-				shout.clear();
-			}
+			shout.load(data["shout"].get<std::string>());
 		}
 	}
 

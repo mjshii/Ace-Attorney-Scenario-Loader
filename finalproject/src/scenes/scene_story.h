@@ -81,6 +81,7 @@ namespace finalproject {
 
 		void updateTestimonyIndex(int key);
 		bool canPresent();
+		bool canSave();
 		bool shouldShowName();
 		bool addItem(json item);
 		bool removeItem(json list);
