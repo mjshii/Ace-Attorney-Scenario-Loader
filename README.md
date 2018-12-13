@@ -1,7 +1,15 @@
 # Ace Attorney Scenario Loader
-[TOC]
+### Table of Contents
 
-### Available Commands
+[Available Commands](#available-commands)
+
+[Playable Version](#playable-version)
+
+[YAML Version](#yaml-version)
+
+
+
+## Available Commands
 
 All available commands in the scenario files can be seen below:
 
@@ -130,7 +138,7 @@ All available commands in the scenario files can be seen below:
 
 
 
-### Playable version
+## Playable version
 
 Here's a playable version of the above:
 
@@ -232,7 +240,7 @@ Here's a playable version of the above:
 
 
 
-### YAML version
+## YAML version
 
 It may be easier to write these in YAML instead and [convert it to json](https://www.json2yaml.com/).
 
