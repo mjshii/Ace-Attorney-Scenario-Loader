@@ -16,6 +16,7 @@ inventory:
   image: commits.png
   type: 'Type: Documents <br> Obtained from GitHub.'
   desc: Shows 22 commits starting from 4 to 11:59 PM on 12/12/2018.
+
 story:
 - bg: courtroom.png
   bgm: bgm.mp3
@@ -151,6 +152,7 @@ story:
         image: mjshi_ahh.png
         text: (Ahhh... that is a valid point.)
       - text: (I feel like there's something here that I can fight him on, though.)
+        image: mjshi.png
       - text: Maybe I should look through my court record...
 
       present Commit History:
@@ -177,6 +179,7 @@ story:
       - text: It was submitted so late that I must've missed it!
       - text: I'm sorry, Student. Looks like I owe you a 10%.
         image: evans_concerned.png
+      - cmd: exit
 
       press:
       - shout: press.png
@@ -204,5 +207,19 @@ story:
         image: mjshi_ahh.png
         text: (No use. There's nothing I can press him on here.)
 
-- text: You broke out of the loop! Congrats
-- text: That's the end of it now.
+- bg: courtroom.png
+  name: Student
+  image: student_cry.png
+  text: Waaaahhh!
+- image: mjshi_shock.png
+  name: Lawyer
+  text: Wait, why are you still crying? The professor's bumping you up 10%!
+- name: Student
+  image: student_cry.png
+  text: No, no, no...
+- text: These are happy tears!
+- text: Thank you so much!!
+  image: student_thankful.png
+- image: mjshi_smile.png
+  name: Lawyer
+  text: No problem, man. Anytime.
