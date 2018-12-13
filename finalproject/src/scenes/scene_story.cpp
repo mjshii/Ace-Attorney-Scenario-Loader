@@ -53,6 +53,14 @@ namespace finalproject {
 				overlay.clear();
 			}
 		}
+
+		if (data.contains("shout")) {
+			if (data["shout"].size() > 0) {
+				shout.load(data["shout"].get<std::string>());
+			} else {
+				shout.clear();
+			}
+		}
 	}
 
 	void Scene_Story::updateTextbox() {
@@ -72,17 +80,23 @@ namespace finalproject {
 			bgm_channel.setLoop(true);
 			bgm_channel.play();
 		}
+		if (data.contains("sfx")) {
+			sfx_channel.load(data["bgm"].get<std::string>());
+			bgm_channel.setLoop(true);
+			bgm_channel.play();
+		}
 	}
 
 	void Scene_Story::draw() {
 		bg.draw(0, 0);
 		sprite.draw(0, 0);
 		overlay.draw(0, 0);
+		shout.draw(0, 0);
 
 		if (scenes.size() == 1) {
 			text_bg.draw(0, 0);
 
-			if (data.contains("text")) {
+			if (data.contains("text") && !data.contains("shout")) {
 				drawTextbox();
 			}
 		}
@@ -113,16 +127,26 @@ namespace finalproject {
 		return key == 'x';
 	}
 
+	void Scene_Story::processSaveLoad(int key) {
+		if (key == 's') {
+			saveData();
+		} else if (key == 'l') {
+			loadData();
+		}
+	}
+
 	bool Scene_Story::validKey(int key) {
 		return pressedOK(key) || pressedCancel(key) ||
 			(canPresent() && (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == OF_KEY_DOWN));
 	}
 
 	void Scene_Story::processKey(int key) {
+		shout.clear();
+		processSaveLoad(key);
+
 		if (!validKey(key)) {
 			return;
 		}
-
 		if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
 		} else {
@@ -342,9 +366,10 @@ namespace finalproject {
 	}
 
 	// Stretch goal - save files
-
 	void Scene_Story::saveData() {
 		json save;
+		save["current_text"] = current_text;
+		save["next_text"] = next_text;
 		save["story_index"] = story_index;
 		save["testimony_index"] = testimony_index;
 		save["press_index"] = press_index;
@@ -354,32 +379,37 @@ namespace finalproject {
 		save["seen_after"] = seen_after;
 
 		std::string save_data = save.dump();
+		std::cout << save_data << std::endl;
 		cryptor::set_key(kEncryptionKey);
 
-		ofstream file(save_name);
+		ofstream file(save_name, std::ios::trunc);
 		file << cryptor::encrypt(save_data);
 		file.close();
 	}
 
 	void Scene_Story::loadData() {
+		std::string loaded_data;
+
 		ifstream file(save_name);
-		std::stringstream buffer;
-		buffer << file.rdbuf();
+		std::getline(file, loaded_data);
 		file.close();
-		
-		json load;
+
 		cryptor::set_key(kEncryptionKey);
-		load.parse(cryptor::decrypt(buffer.str()));
+		loaded_data = cryptor::decrypt(loaded_data);
+		json load = json::parse(loaded_data);
 
-		story_index = load["story index"];
-		press_index = load["press index"];
-
+		current_text = load["current_text"].get<std::string>();
+		next_text = load["next_text"].get<std::string>();
 		story_index = load["story_index"];
 		testimony_index = load["testimony_index"];
 		press_index = load["press_index"];
 		present_index = load["present_index"];
 		after_index = load["after_index"];
-		press_flags = load["press_flags"].get<std::vector<bool>>;
+
+		press_flags.clear();
+		for (auto &i : load["press_flags"]) {
+			press_flags.push_back(i.get<bool>());
+		}
 		seen_after = load["seen_after"];
 	}
 }

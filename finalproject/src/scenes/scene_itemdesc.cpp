@@ -12,7 +12,7 @@ namespace finalproject {
 	}
 
 	void Scene_ItemDesc::refreshItem() {
-		item.load(inventory[sel_index].image + ".png");
+		item.load(inventory[sel_index].image);
 		wrapped_desc = wordWrap(inventory[sel_index].desc, kTextWidth);
 		wrapped_type = wordWrap(inventory[sel_index].type, kTypeWidth);
 	}

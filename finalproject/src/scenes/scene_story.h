@@ -9,7 +9,7 @@ namespace finalproject {
 
 	class Scene_Story : public Scene {
 		const int kDefaultKey = OF_KEY_RETURN;
-		const std::string kEncryptionKey = "Super Weak Key!";
+		const std::string kEncryptionKey = "super duper weak key";
 		json file;
 		json data;
 		std::string save_name;
@@ -35,6 +35,7 @@ namespace finalproject {
 		ofImage bg;
 		ofImage sprite;
 		ofImage overlay;
+		ofImage shout;
 		ofImage text_bg;
 		ofImage testimony_arrows;
 
@@ -57,6 +58,7 @@ namespace finalproject {
 		bool validKey(int key);
 		bool pressedOK(int key);
 		bool pressedCancel(int key);
+		void processSaveLoad(int key);
 
 		void readNextLine(int key);
 		void readStoryLine();

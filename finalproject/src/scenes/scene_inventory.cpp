@@ -18,7 +18,7 @@ namespace finalproject {
 		int start_i = (sel_index / 8) * 8;
 		for (int i = start_i; i < std::min((int)inventory.size(), start_i + kRows * kCols); i++) {
 			int adj_i = i % (kRows * kCols);
-			item.load(inventory[i].image + ".png");
+			item.load(inventory[i].image);
 			item.draw(
 				kItemX + (adj_i % kCols) * (kItemWidth + kItemXPad),
 				kItemY + (adj_i / kCols) * (kItemHeight + kItemYPad),

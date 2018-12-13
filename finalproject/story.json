@@ -12,37 +12,37 @@
     },
     {
       "name": "test 0",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 0"
     },
     {
       "name": "test 1",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 1"
     },
     {
       "name": "test 2",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 2"
     },
     {
       "name": "test 3",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 3"
     },
     {
       "name": "test 4",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 4"
     },
     {
       "name": "test 5",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 5"
     },
     {
       "name": "test 6",
-      "image": "test",
+      "image": "test.png",
       "desc": "some random test item 6"
     }
   ],
@@ -97,6 +97,9 @@
           {
             "text": "So there's this thing",
             "press": [
+              {
+                "shout": "press.png"
+              },
               {
                 "text": "To elaborate..."
               },
