@@ -206,13 +206,12 @@ namespace finalproject {
 			current_text.clear();
 		} else {
 			press_index = -1;
-			readTestimonyLine(kDefaultKey);
+			readTestimonyLine(key);
 		}
 	}
 
 	void Scene_Story::readPresentLine(int key) {
 		present_index++;
-		std::cout << present_index << std::endl;
 
 		data = file["story"][story_index]["testimony"]["statements"][testimony_index];
 		if (data.contains("present " + last_data)) {
@@ -227,7 +226,10 @@ namespace finalproject {
 		} else {
 			present_index = -1;
 			last_data = "";
-			readTestimonyLine(kDefaultKey);
+			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
+				testimony_index = -1;
+			}
+			readNextLine(key);
 		}
 	}
 
