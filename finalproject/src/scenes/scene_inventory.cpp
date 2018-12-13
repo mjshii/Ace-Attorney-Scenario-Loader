@@ -4,7 +4,7 @@
 namespace finalproject {
 
 	Scene_Inventory::Scene_Inventory(const std::vector<InventoryItem>& i, bool present_ok) {
-		bg.load(present_ok ? "inventory_bg_present.png" : "inventory_bg.png");
+		bg.load(present_ok ? kPresentBG : kNormalBG);
 		font.load(constants::kFontFile, constants::kFontSize);
 		inventory = i;
 		can_present = present_ok;
@@ -23,7 +23,7 @@ namespace finalproject {
 	}
 
 	void Scene_Inventory::drawItems() {
-		int start_i = (sel_index / 8) * 8;
+		int start_i = (sel_index / kItemsPerPage) * kItemsPerPage;
 		for (int i = start_i; i < std::min((int)inventory.size(), start_i + kRows * kCols); i++) {
 			int adj_i = i % (kRows * kCols);
 			item.load(inventory[i].image);
@@ -35,7 +35,7 @@ namespace finalproject {
 			);
 
 			if (i == sel_index) {
-				item.load("rect.png");
+				item.load(kSelectRect);
 				item.draw(
 					kItemX - kBorderWidth + (adj_i % kCols) * (kItemWidth + kItemXPad),
 					kItemY - kBorderWidth + (adj_i / kCols) * (kItemHeight + kItemYPad)

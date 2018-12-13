@@ -4,7 +4,7 @@
 namespace finalproject {
 	Scene_Story::Scene_Story(const json &story_file, std::string filename) {
 		file = story_file;
-		save_name = filename + "_save.txt";
+		save_name = filename + kSaveSuffix;
 		for (auto& item : file["inventory"]) {
 			addItem(item);
 		}
@@ -14,8 +14,8 @@ namespace finalproject {
 
 	void Scene_Story::loadResources() {
 		font.load(constants::kFontFile, constants::kFontSize);
-		name_font.load(constants::kFontFile, constants::kFontSize - 5);
-		testimony_arrows.load("testimony_arrows.png");
+		name_font.load(constants::kFontFile, constants::kFontSize - kFontDecrement);
+		testimony_arrows.load(kArrowsImage);
 	}
 
 	void Scene_Story::update() {

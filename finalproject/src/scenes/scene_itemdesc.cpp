@@ -4,7 +4,7 @@ namespace finalproject {
 	Scene_ItemDesc::Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag, bool present_ok) {
 		can_present = present_ok;
 		font.load(constants::kFontFile, constants::kFontSize);
-		bg.load(present_ok ? "image_desc_present.png" : "image_desc.png");
+		bg.load(present_ok ? kPresentBG : kNormalBG);
 		inventory = bag;
 		sel_index = index;
 
@@ -65,8 +65,7 @@ namespace finalproject {
 
 		if (sel_index < 0) {
 			sel_index += inventory.size();
-		}
-		else if (sel_index >= inventory.size()) {
+		} else if (sel_index >= inventory.size()) {
 			sel_index -= inventory.size();
 		}
 		refreshItem();

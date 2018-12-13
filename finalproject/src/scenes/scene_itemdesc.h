@@ -31,6 +31,9 @@ namespace finalproject {
 		const int kTypeY = 236;
 		const int kTypeWidth = 583;
 
+		const std::string kNormalBG = "image_desc.png";
+		const std::string kPresentBG = "image_desc_present.png";
+
 		bool pressedCancel(int key);
 		bool pressedPresent(int key);
 		void refreshItem();

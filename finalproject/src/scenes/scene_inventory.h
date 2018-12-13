@@ -33,6 +33,12 @@ namespace finalproject {
 		const int kItemYPad = 40;
 		const int kBorderWidth = 4;
 
+		const std::string kNormalBG = "inventory_bg.png";
+		const std::string kPresentBG = "inventory_bg_present.png";
+		const std::string kSelectRect = "rect.png";
+
+		const int kItemsPerPage = 8;
+
 		bool pressedOK(int key);
 		bool pressedCancel(int key);
 		bool pressedPresent(int key);

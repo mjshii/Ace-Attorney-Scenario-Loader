@@ -9,7 +9,11 @@ namespace finalproject {
 
 	class Scene_Story : public Scene {
 		const int kDefaultKey = OF_KEY_RETURN;
-		const std::string kEncryptionKey = "super duper weak key";
+		const std::string kEncryptionKey = "Hardcoded super-duper weak key for anti-player purposes only. Not intended for anti-CIA use.";
+		const std::string kSaveSuffix = "_save.txt";
+		const std::string kArrowsImage = "testimony_arrows.png";
+		const int kFontDecrement = 5;
+
 		json file;
 		json data;
 		json resources;
