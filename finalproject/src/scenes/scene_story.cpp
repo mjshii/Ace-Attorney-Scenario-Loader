@@ -212,7 +212,6 @@ namespace finalproject {
 
 	void Scene_Story::readPresentLine(int key) {
 		present_index++;
-
 		data = file["story"][story_index]["testimony"]["statements"][testimony_index];
 		if (data.contains("present " + last_data)) {
 			data = data["present " + last_data][present_index];
@@ -228,6 +227,7 @@ namespace finalproject {
 			last_data = "";
 			if (data.contains("cmd") && data["cmd"].get<std::string>() == "exit") {
 				testimony_index = -1;
+				press_flags.clear();
 			}
 			readNextLine(key);
 		}
