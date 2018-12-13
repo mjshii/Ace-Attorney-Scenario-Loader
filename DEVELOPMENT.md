@@ -28,10 +28,10 @@
 
 ## Week 4 (12/9-12/12)
 
-| Date | Accomplishments |
-| ---- | --------------- |
-|      |                 |
-|      |                 |
-|      |                 |
-|      |                 |
+| Date  | Accomplishments                                              |
+| ----- | ------------------------------------------------------------ |
+| 12/9  | Created testimony skeleton, added controls screen            |
+| 12/10 | Added movement between statements in the testimony           |
+| 12/11 | Added pressing statements and support for conditionals       |
+| 12/12 | Added inventory item addition/removal, finalized presenting and pressing, added testimony afterword, created working save/load function and added shouts |
 
