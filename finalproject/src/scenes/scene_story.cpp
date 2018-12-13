@@ -32,61 +32,10 @@ namespace finalproject {
 	}
 
 	void Scene_Story::updateImages() {
-		if (data.contains("bg")) {
-			bg.load(data["bg"].get<std::string>());
-			resources["bg"] = data["bg"];
-		}
-
-		if (data.contains("image")) {
-			if (data["image"].size() > 0) {
-				sprite.load(data["image"].get<std::string>());
-				resources["image"] = data["image"];
-			} else {
-				sprite.clear();
-			}
-		}
-
-		if (data.contains("overlay")) {
-			if (data["overlay"].size() > 0) {
-				overlay.load(data["overlay"].get<std::string>());
-				resources["overlay"] = data["overlay"];
-			}
-			else {
-				overlay.clear();
-			}
-		}
-
-		if (data.contains("shout")) {
-			if (data["shout"].size() > 0) {
-				shout.load(data["shout"].get<std::string>());
-			} else {
-				shout.clear();
-			}
-		}
-	}
-
-	void Scene_Story::updateTextbox() {
-		text_bg.clear();
-		if (data.contains("text")) {
-			text_bg.load("text_bg.png");
-		}
-
-		if (data.contains("name")) {
-			name_text = data["name"].get<std::string>();
-		}
-	}
-
-	void Scene_Story::updateSounds() {
-		if (data.contains("bgm")) {
-			bgm_channel.load(data["bgm"].get<std::string>());
-			bgm_channel.setLoop(true);
-			bgm_channel.play();
-			resources["bgm"] = data["bgm"];
-		}
-		if (data.contains("sfx")) {
-			sfx_channel.load(data["sfx"].get<std::string>());
-			sfx_channel.play();
-		}
+		updateBackground();
+		updateSprite();
+		updateOverlay();
+		updateShout();
 	}
 
 	void Scene_Story::draw() {
@@ -152,8 +101,7 @@ namespace finalproject {
 
 		if (!validKey(key)) {
 			return;
-		}
-		if (pressedCancel(key)) {
+		} else if (pressedCancel(key)) {
 			scenes.add(ScenePtr(new Scene_Inventory(inventory, canPresent())));
 		} else {
 			// fast forward text
@@ -174,8 +122,7 @@ namespace finalproject {
 				readTestimonyLine(key);
 			}
 			shouldUpdate = true;
-		}
-		catch (std::exception) {
+		} catch (std::exception) {
 			bgm_channel.stop();
 			scenes.replace(ScenePtr(new Scene_Title()));
 		}
@@ -467,6 +414,69 @@ namespace finalproject {
 		inventory.clear();
 		for (auto& item : load["inventory"]) {
 			addItem(item);
+		}
+	}
+
+	void Scene_Story::updateBackground() {
+		if (data.contains("bg")) {
+			bg.load(data["bg"].get<std::string>());
+			resources["bg"] = data["bg"];
+		}
+	}
+
+	void Scene_Story::updateSprite() {
+		if (data.contains("image")) {
+			if (data["image"].size() > 0) {
+				sprite.load(data["image"].get<std::string>());
+				resources["image"] = data["image"];
+			} else {
+				sprite.clear();
+			}
+		}
+	}
+
+	void Scene_Story::updateOverlay() {
+		if (data.contains("overlay")) {
+			if (data["overlay"].size() > 0) {
+				overlay.load(data["overlay"].get<std::string>());
+				resources["overlay"] = data["overlay"];
+			} else {
+				overlay.clear();
+			}
+		}
+	}
+
+	void Scene_Story::updateShout() {
+		if (data.contains("shout")) {
+			if (data["shout"].size() > 0) {
+				shout.load(data["shout"].get<std::string>());
+			} else {
+				shout.clear();
+			}
+		}
+	}
+
+	void Scene_Story::updateTextbox() {
+		text_bg.clear();
+		if (data.contains("text")) {
+			text_bg.load("text_bg.png");
+		}
+
+		if (data.contains("name")) {
+			name_text = data["name"].get<std::string>();
+		}
+	}
+
+	void Scene_Story::updateSounds() {
+		if (data.contains("bgm")) {
+			bgm_channel.load(data["bgm"].get<std::string>());
+			bgm_channel.setLoop(true);
+			bgm_channel.play();
+			resources["bgm"] = data["bgm"];
+		}
+		if (data.contains("sfx")) {
+			sfx_channel.load(data["sfx"].get<std::string>());
+			sfx_channel.play();
 		}
 	}
 }

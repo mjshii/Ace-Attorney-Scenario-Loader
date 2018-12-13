@@ -37,6 +37,9 @@ namespace finalproject {
 		bool pressedCancel(int key);
 		bool pressedPresent(int key);
 
+		void drawItems();
+		void processScroll(int key);
+
 	public:
 		Scene_Inventory(const std::vector<InventoryItem> &i, bool present_ok = false);
 

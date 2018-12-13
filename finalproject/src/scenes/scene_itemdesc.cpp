@@ -22,18 +22,16 @@ namespace finalproject {
 	void Scene_ItemDesc::draw() {
 		bg.draw(0, 0);
 		item.draw(kImageX, kImageY);
-
 		font.drawString(
 			inventory[sel_index].image,
 			kNameX + (kNameWidth - font.stringWidth(inventory[sel_index].name)) / 2,
 			kNameY + (font.getLineHeight() + font.getDescenderHeight() / 2)
 		);
-
-		font.drawString(wrapped_desc, kTextX, kTextY + font.getSize());
-
+		
 		ofSetColor(0);
 		font.drawString(wrapped_type, kTypeX, kTypeY + font.getSize());
 		ofSetColor(255);
+		font.drawString(wrapped_desc, kTextX, kTextY + font.getSize());
 	}
 
 	bool Scene_ItemDesc::pressedCancel(int key) {
@@ -41,7 +39,7 @@ namespace finalproject {
 	}
 
 	bool Scene_ItemDesc::pressedPresent(int key) {
-		return key == OF_KEY_UP;
+		return key == OF_KEY_UP || key == 'd';
 	}
 
 	void Scene_ItemDesc::processKey(int key) {
@@ -54,17 +52,21 @@ namespace finalproject {
 			scenes.pop();
 			return;
 		}
+		processScroll(key);
+	}
 
+	void Scene_ItemDesc::processScroll(int key) {
 		switch (key) {
-			case OF_KEY_RIGHT:	sel_index++;
-				break;
-			case OF_KEY_LEFT:	sel_index--;
-				break;
+		case OF_KEY_RIGHT:	sel_index++;
+			break;
+		case OF_KEY_LEFT:	sel_index--;
+			break;
 		}
 
 		if (sel_index < 0) {
 			sel_index += inventory.size();
-		} else if (sel_index >= inventory.size()) {
+		}
+		else if (sel_index >= inventory.size()) {
 			sel_index -= inventory.size();
 		}
 		refreshItem();

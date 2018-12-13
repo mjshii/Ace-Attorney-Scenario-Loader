@@ -53,6 +53,11 @@ namespace finalproject {
 		void updatePressFlags();
 
 		void updateImages();
+		void updateBackground();
+		void updateSprite();
+		void updateOverlay();
+		void updateShout();
+
 		void updateTextbox();
 		void updateSounds();
 

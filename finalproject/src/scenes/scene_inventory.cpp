@@ -14,7 +14,15 @@ namespace finalproject {
 
 	void Scene_Inventory::draw() {
 		bg.draw(0, 0);
-		
+		drawItems();
+		font.drawString(
+			inventory[sel_index].name,
+			kInputX + (kInputWidth - font.stringWidth(inventory[sel_index].name)) / 2,
+			kInputY + (font.getLineHeight() + font.getDescenderHeight()/2)
+		);
+	}
+
+	void Scene_Inventory::drawItems() {
 		int start_i = (sel_index / 8) * 8;
 		for (int i = start_i; i < std::min((int)inventory.size(), start_i + kRows * kCols); i++) {
 			int adj_i = i % (kRows * kCols);
@@ -34,12 +42,6 @@ namespace finalproject {
 				);
 			}
 		}
-
-		font.drawString(
-			inventory[sel_index].name,
-			kInputX + (kInputWidth - font.stringWidth(inventory[sel_index].name)) / 2,
-			kInputY + (font.getLineHeight() + font.getDescenderHeight()/2)
-		);
 	}
 
 	bool Scene_Inventory::pressedOK(int key) {
@@ -47,7 +49,7 @@ namespace finalproject {
 	}
 
 	bool Scene_Inventory::pressedCancel(int key) {
-		return key == 'x' || key == OF_KEY_ESC;
+		return key == 'x';
 	}
 
 	bool Scene_Inventory::pressedPresent(int key) {
@@ -66,7 +68,10 @@ namespace finalproject {
 			scenes.pop();
 			return;
 		}
+		processScroll(key);
+	}
 
+	void Scene_Inventory::processScroll(int key) {
 		switch (key) {
 			case OF_KEY_RIGHT:
 				sel_index++;
@@ -90,5 +95,4 @@ namespace finalproject {
 		}
 		sel_index %= inventory.size();
 	}
-
 }

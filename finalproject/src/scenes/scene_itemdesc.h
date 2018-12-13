@@ -34,6 +34,7 @@ namespace finalproject {
 		bool pressedCancel(int key);
 		bool pressedPresent(int key);
 		void refreshItem();
+		void processScroll(int key);
 
 	public:
 		Scene_ItemDesc(int index, const std::vector<InventoryItem>& bag, bool present_ok = false);
