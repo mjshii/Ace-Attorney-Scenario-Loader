@@ -97,11 +97,15 @@ All available commands in the scenario files can be seen below:
             "type": "Details on kind and where received",
             "desc": "A detailed description of the item"
         }
-        // ... as many more as you want
+```
+... as many more as you want
+```json
     ],
     "story": [
         {
-            // choose any number of the below commands
+```
+choose any number of the below commands
+```json
             "bg": "background_image.png",
             "bgm": "looping_background_music.mp3",
             "sfx": "sound_effect_that_plays_once.mp3",
@@ -113,16 +117,18 @@ All available commands in the scenario files can be seen below:
             "add item": {
                 "name": "the usual",
                 "image": "the usual",
-                // ... etc
+```
+... etc
+```json
             },
             "remove item": ["one", "or", "many item names"],
         },
         {
             "text": "another block, but bg, bgm, name, image, and overlay persist to here so I can just type out some dialogue. Clear those out by setting them to an empty string."
         },
-        // ...
-        // repeat as many times as you want
-        // ...
+```
+(repeat as many times as you want)
+```json
         {
             "testimony": {
                 "default present": [
@@ -130,13 +136,14 @@ All available commands in the scenario files can be seen below:
                         "name": "A disapproving judge",
                         "text": "A block that shows up when you present an invalid item. All the normal rules apply"
                     }
-                    // as long as you want, as above
+```
+(repeat as needed)
+```json
                 ],
                 "afterword": [
                     {
                         "text": "What the attorneys say after the guy has given his testimony"
                     }
-                    // as long as you want, as above
                 ],
                 "short afterword": [
                     {
@@ -165,7 +172,9 @@ All available commands in the scenario files can be seen below:
                     },
                     {
                         "text": "Statement number 2",
-                        // this statement only shows up if you press statement 1 and has no special present dialogue
+```
+(this statement only shows up if you press statement 1 and has no special present dialogue)
+```json
                         "condition": 1,
                         "press": [
                             {
